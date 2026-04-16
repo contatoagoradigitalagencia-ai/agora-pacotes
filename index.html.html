@@ -366,18 +366,31 @@ var COMBOS = {
   custom:   { svcs:[], levels:[], label:'' }
 };
 
-// Cupons carregados dinamicamente da planilha
+// Cupons carregados dinamicamente da planilha via CSV público
 var COUPONS = {};
 var COUPONS_LOADED = false;
+var CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTkks3k00yB30vUbCq_6A6FqC5LhiUH8Q_7zjsvcyqDcMYjU7FAE7BcErdTRYbNIQrPSIcQYYuGRa2o/pub?gid=1238209131&single=true&output=csv';
 
 function loadCoupons() {
-  var script = document.createElement('script');
-  script.src = ENDPOINT + '?action=coupons&callback=setCoupons';
-  document.head.appendChild(script);
-  // Timeout fallback — se não carregar em 3s, fica vazio (sem cupons hardcoded)
-  setTimeout(function(){
-    if(!COUPONS_LOADED) COUPONS = {};
-  }, 3000);
+  fetch(CSV_URL)
+    .then(function(r){ return r.text(); })
+    .then(function(csv){
+      var lines = csv.trim().split('\n');
+      var coupons = {};
+      for(var i = 1; i < lines.length; i++){
+        var cols = lines[i].split(',');
+        var codigo = (cols[0]||'').trim().toUpperCase().replace(/"/g,'');
+        var tipo   = (cols[1]||'').trim().toLowerCase().replace(/"/g,'');
+        var valor  = parseFloat((cols[2]||'0').replace(/"/g,'')) || 0;
+        var ativo  = (cols[3]||'').trim().toLowerCase().replace(/"/g,'');
+        if(codigo && ativo === 'sim'){
+          coupons[codigo] = { type: tipo, value: valor, accumulate: false };
+        }
+      }
+      COUPONS = coupons;
+      COUPONS_LOADED = true;
+    })
+    .catch(function(){ COUPONS = {}; COUPONS_LOADED = true; });
 }
 
 function setCoupons(data) {
