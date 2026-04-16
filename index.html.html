@@ -294,12 +294,17 @@ body { font-family:'DM Sans',sans-serif; background:#0a0a0f; color:#f0f0f5; min-
       <div class="coupon-msg" id="couponMsg"></div>
     </div>
     <div class="form-title">Seus dados</div>
-    <input class="form-input" id="fname" type="text" placeholder="Seu nome *">
-    <input class="form-input" id="fwhats" type="tel" placeholder="WhatsApp * (ex: 21999999999)">
+    <input class="form-input" id="fname" type="text" placeholder="Seu nome">
+    <div style="position:relative">
+      <input class="form-input" id="fwhats" type="tel" placeholder="WhatsApp * obrigatório (ex: 21999999999)" style="padding-right:36px">
+      <span id="whatsIcon" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none"></span>
+    </div>
+    <div id="whatsMsg" style="font-size:11px;margin:-4px 0 6px;display:none"></div>
     <input class="form-input" id="fempresa" type="text" placeholder="Empresa (opcional)">
     <input class="form-input" id="fsegmento" type="text" placeholder="Segmento (opcional)">
     <div class="consent">Ao enviar, você concorda com o uso dos dados para contato comercial pela Agora Digital.</div>
-    <button class="btn-primary" id="btnWhats">💬 Receber proposta no WhatsApp</button>
+    <button class="btn-primary" id="btnWhats" disabled style="opacity:0.35;cursor:not-allowed">💬 Receber proposta no WhatsApp</button>
+    <div id="whatsHint" style="font-size:11px;color:#555;text-align:center;margin:-4px 0 8px">Preencha seu WhatsApp para continuar</div>
     <button class="btn-secondary" id="btnFalar">Falar com a equipe</button>
     <div style="margin-top:16px;font-size:11px;color:#2a2a2a;text-align:center;line-height:1.6">⚡ Início em até 3 dias úteis após fechamento</div>
   </div>
@@ -801,6 +806,35 @@ function doSend(){
 
 document.getElementById('btnWhats').addEventListener('click', doSend);
 document.getElementById('btnFalar').addEventListener('click', function(){ window.open('https://wa.me/'+WA,'_blank'); });
+
+// Validacao em tempo real do WhatsApp
+document.getElementById('fwhats').addEventListener('input', function(){ validarWhats(); });
+
+function validarWhats(){
+  var input = document.getElementById('fwhats');
+  var val = input.value.replace(/\D/g,'');
+  var icon = document.getElementById('whatsIcon');
+  var msg = document.getElementById('whatsMsg');
+  var hint = document.getElementById('whatsHint');
+  var btn = document.getElementById('btnWhats');
+  if(val.length === 0){
+    input.style.borderColor=''; icon.textContent=''; msg.style.display='none';
+    btn.disabled=true; btn.style.opacity='0.35'; btn.style.cursor='not-allowed';
+    hint.style.display='block'; return;
+  }
+  if(val.length >= 10 && val.length <= 13){
+    input.style.borderColor='#2adb7c'; icon.textContent='✓'; icon.style.color='#2adb7c';
+    msg.style.display='none';
+    btn.disabled=false; btn.style.opacity='1'; btn.style.cursor='pointer';
+    hint.style.display='none';
+  } else {
+    input.style.borderColor='#ef4444'; icon.textContent='✗'; icon.style.color='#ef4444';
+    msg.textContent='Digite um número válido com DDD (ex: 21999999999)';
+    msg.style.display='block'; msg.style.color='#ef4444';
+    btn.disabled=true; btn.style.opacity='0.35'; btn.style.cursor='not-allowed';
+    hint.style.display='none';
+  }
+}
 
 // Carrega cupons da planilha ao iniciar
 loadCoupons();
