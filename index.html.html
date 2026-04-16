@@ -4,823 +4,698 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Monte seu Pacote — Agora Digital</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0a0f;
-    --bg2: #111118;
-    --bg3: #18181f;
-    --card: #1c1c24;
-    --card2: #22222c;
-    --border: rgba(255,255,255,0.07);
-    --border2: rgba(255,255,255,0.14);
-    --accent: #ff6b35;
-    --accent2: #ff9a5c;
-    --accent-glow: rgba(255,107,53,0.15);
-    --text: #f0f0f5;
-    --text2: #9090a8;
-    --green: #2adb7c;
-    --green-bg: rgba(42,219,124,0.1);
-    --blue: #4a9eff;
-    --blue-bg: rgba(74,158,255,0.1);
-    --purple: #a855f7;
-    --purple-bg: rgba(168,85,247,0.1);
-    --gold: #f59e0b;
-    --gold-bg: rgba(245,158,11,0.1);
-    --r: 12px;
-    --r2: 8px;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
-  .header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 100; }
-  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.5px; }
-  .logo span { color: var(--accent); }
-  .header-badge { background: var(--accent-glow); border: 1px solid rgba(255,107,53,0.3); color: var(--accent2); font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 20px; }
-  .hero { padding: 48px 32px 32px; max-width: 1200px; margin: 0 auto; }
-  .hero-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-glow); border: 1px solid rgba(255,107,53,0.25); color: var(--accent2); font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: 20px; margin-bottom: 16px; letter-spacing: 0.5px; text-transform: uppercase; }
-  .hero-tag::before { content: '●'; font-size: 8px; }
-  .hero h1 { font-family: 'Syne', sans-serif; font-size: 40px; font-weight: 800; line-height: 1.1; letter-spacing: -1px; margin-bottom: 12px; }
-  .hero h1 em { font-style: normal; color: var(--accent); }
-  .hero p { color: var(--text2); font-size: 16px; max-width: 560px; line-height: 1.6; }
-  .intent-section { max-width: 1200px; margin: 0 auto; padding: 0 32px 32px; }
-  .intent-label { font-size: 13px; color: var(--text2); font-weight: 500; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .intent-pills { display: flex; flex-wrap: wrap; gap: 8px; }
-  .intent-pill { background: var(--card); border: 1px solid var(--border); color: var(--text2); font-size: 14px; padding: 8px 16px; border-radius: 24px; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
-  .intent-pill:hover { border-color: var(--accent); color: var(--text); }
-  .intent-pill.active { background: var(--accent-glow); border-color: var(--accent); color: var(--accent2); font-weight: 500; }
-  .main-layout { max-width: 1200px; margin: 0 auto; padding: 0 32px 64px; display: grid; grid-template-columns: 1fr 360px; gap: 24px; align-items: start; }
-  .service-group { margin-bottom: 32px; }
-  .service-group-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-  .service-group-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .service-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); margin-bottom: 12px; overflow: hidden; transition: border-color 0.2s; }
-  .service-card.selected { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(255,107,53,0.2); }
-  .service-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; cursor: pointer; user-select: none; }
-  .service-info { display: flex; align-items: center; gap: 12px; pointer-events: none; }
-  .service-icon { width: 36px; height: 36px; border-radius: var(--r2); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-  .service-name { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); }
-  .service-desc { font-size: 12px; color: var(--text2); margin-top: 2px; }
-  .service-toggle { width: 44px; height: 24px; background: var(--bg3); border: 1px solid var(--border2); border-radius: 12px; position: relative; transition: all 0.25s; cursor: pointer; flex-shrink: 0; pointer-events: none; }
-  .service-toggle::after { content: ''; width: 18px; height: 18px; background: var(--text2); border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: all 0.25s; }
-  .service-card.selected .service-toggle { background: var(--accent); border-color: var(--accent); }
-  .service-card.selected .service-toggle::after { background: white; left: 22px; }
-  .levels-panel { display: none; padding: 0 20px 20px; border-top: 1px solid var(--border); }
-  .service-card.selected .levels-panel { display: block; }
-  .levels-label { font-size: 12px; color: var(--text2); font-weight: 500; margin: 12px 0 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .levels-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .level-btn { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r2); padding: 12px 10px; cursor: pointer; transition: all 0.2s; text-align: left; font-family: 'DM Sans', sans-serif; }
-  .level-btn:hover { border-color: var(--border2); }
-  .level-btn.active { background: var(--accent-glow); border-color: var(--accent); }
-  .level-tier { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; pointer-events: none; }
-  .level-tier.low { color: var(--blue); }
-  .level-tier.mid { color: var(--gold); }
-  .level-tier.high { color: var(--green); }
-  .level-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; pointer-events: none; }
-  .level-price { font-size: 14px; font-weight: 500; color: var(--accent2); pointer-events: none; }
-  .level-badge { display: inline-block; font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-top: 4px; pointer-events: none; }
-  .level-badge.popular { background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(245,158,11,0.3); }
-  .level-badge.best { background: var(--green-bg); color: var(--green); border: 1px solid rgba(42,219,124,0.3); }
-  .level-details { margin-top: 12px; background: var(--bg3); border-radius: var(--r2); padding: 12px 14px; border: 1px solid var(--border); display: none; }
-  .level-details.visible { display: block; }
-  .details-title { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; margin-bottom: 8px; }
-  .details-list { list-style: none; display: flex; flex-wrap: wrap; gap: 4px; }
-  .details-list li { font-size: 12px; color: var(--text2); background: var(--card2); padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border); }
-  .details-list li::before { content: '✓ '; color: var(--green); font-size: 10px; }
-  .upsell-hint { align-items: flex-start; gap: 8px; background: var(--blue-bg); border: 1px solid rgba(74,158,255,0.2); border-radius: var(--r2); padding: 10px 12px; margin-top: 12px; font-size: 13px; color: var(--blue); display: none; }
-  .upsell-hint.show { display: flex; }
-  .upsell-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-  .combos-section { max-width: 1200px; margin: 0 auto; padding: 0 32px 32px; }
-  .combos-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-  .combos-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .combos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
-  .combo-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 16px 18px; cursor: pointer; transition: all 0.2s; }
-  .combo-card:hover { border-color: var(--accent); }
-  .combo-name { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 6px; pointer-events: none; }
-  .combo-items { font-size: 12px; color: var(--text2); line-height: 1.7; pointer-events: none; }
-  .combo-apply { margin-top: 10px; font-size: 12px; color: var(--accent); font-weight: 500; pointer-events: none; }
-  .sidebar { position: sticky; top: 80px; }
-  .resume-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
-  .resume-header { background: var(--card2); border-bottom: 1px solid var(--border); padding: 14px 20px; display: flex; align-items: center; gap: 8px; }
-  .resume-header-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; }
-  .resume-body { padding: 16px 20px; }
-  .progress-section { margin-bottom: 16px; }
-  .progress-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 12px; color: var(--text2); }
-  .progress-track { height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
-  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; transition: width 0.4s ease; }
-  .progress-stage { font-size: 11px; color: var(--accent2); font-weight: 500; margin-top: 4px; }
-  .resume-items { margin-bottom: 16px; min-height: 40px; }
-  .resume-empty { color: var(--text2); font-size: 13px; text-align: center; padding: 20px 0; }
-  .resume-item { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
-  .resume-item:last-child { border-bottom: none; }
-  .resume-item-name { flex: 1; color: var(--text); line-height: 1.4; }
-  .resume-item-sub { font-size: 11px; color: var(--text2); margin-top: 2px; }
-  .resume-item-price { color: var(--accent2); font-weight: 500; white-space: nowrap; }
-  .deliverables { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r2); padding: 12px 14px; margin-bottom: 16px; display: none; }
-  .deliverables.show { display: block; }
-  .deliverables-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text2); font-weight: 500; margin-bottom: 8px; }
-  .deliverables-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; }
-  .deliv-item { font-size: 12px; color: var(--text2); display: flex; gap: 4px; }
-  .deliv-item strong { color: var(--text); }
-  .discount-row { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; color: var(--text2); }
-  .discount-val { color: var(--green); font-weight: 500; }
-  .coupon-section { margin: 12px 0; }
-  .coupon-toggle { font-size: 13px; color: var(--blue); cursor: pointer; background: none; border: none; font-family: 'DM Sans', sans-serif; padding: 0; text-decoration: underline; text-underline-offset: 2px; }
-  .coupon-input-row { display: none; gap: 6px; margin-top: 8px; }
-  .coupon-input-row.open { display: flex; }
-  .coupon-input { flex: 1; background: var(--bg3); border: 1px solid var(--border2); border-radius: var(--r2); padding: 7px 10px; font-size: 13px; color: var(--text); font-family: 'DM Sans', sans-serif; outline: none; text-transform: uppercase; }
-  .coupon-input:focus { border-color: var(--accent); }
-  .coupon-apply-btn { background: var(--card2); border: 1px solid var(--border2); border-radius: var(--r2); padding: 7px 12px; font-size: 13px; color: var(--text); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; white-space: nowrap; }
-  .coupon-apply-btn:hover { border-color: var(--accent); color: var(--accent2); }
-  .coupon-msg { font-size: 12px; margin-top: 5px; padding: 4px 0; }
-  .coupon-msg.ok { color: var(--green); }
-  .coupon-msg.err { color: #ef4444; }
-  .total-divider { height: 1px; background: var(--border); margin: 12px 0; }
-  .total-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
-  .total-label { font-size: 13px; color: var(--text2); }
-  .total-val { font-size: 13px; color: var(--text); }
-  .grand-label { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; }
-  .grand-val { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--accent); }
-  .savings-badge { background: var(--green-bg); border: 1px solid rgba(42,219,124,0.25); border-radius: var(--r2); padding: 8px 12px; text-align: center; margin: 12px 0; font-size: 13px; color: var(--green); font-weight: 500; display: none; }
-  .savings-badge.show { display: block; }
-  .lead-form { margin-top: 16px; }
-  .form-label { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; margin-bottom: 8px; }
-  .form-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 6px; }
-  .form-input { background: var(--bg3); border: 1px solid var(--border2); border-radius: var(--r2); padding: 8px 12px; font-size: 13px; color: var(--text); font-family: 'DM Sans', sans-serif; outline: none; width: 100%; transition: border-color 0.2s; }
-  .form-input:focus { border-color: var(--accent); }
-  .consent-text { font-size: 11px; color: var(--text2); line-height: 1.5; margin: 10px 0; }
-  .cta-primary { width: 100%; background: var(--accent); border: none; border-radius: var(--r2); padding: 13px; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: white; cursor: pointer; transition: all 0.2s; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 6px; }
-  .cta-primary:hover { background: var(--accent2); transform: translateY(-1px); }
-  .cta-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-  .cta-secondary { width: 100%; background: transparent; border: 1px solid var(--border2); border-radius: var(--r2); padding: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text2); cursor: pointer; transition: all 0.2s; margin-bottom: 6px; }
-  .cta-secondary:hover { border-color: var(--accent); color: var(--text); }
-  .discount-badge { display: none; align-items: center; gap: 6px; background: var(--accent-glow); border: 1px solid rgba(255,107,53,0.25); border-radius: var(--r2); padding: 8px 12px; font-size: 12px; color: var(--accent2); margin-bottom: 12px; font-weight: 500; }
-  .discount-badge.show { display: flex; }
-  .score-badge { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 6px; border-radius: var(--r2); font-size: 12px; font-weight: 500; margin-bottom: 12px; text-align: center; }
-  .score-frio { background: var(--blue-bg); color: var(--blue); border: 1px solid rgba(74,158,255,0.2); }
-  .score-morno { background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(245,158,11,0.2); }
-  .score-quente { background: var(--green-bg); color: var(--green); border: 1px solid rgba(42,219,124,0.2); }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  @media (max-width: 900px) { .main-layout { grid-template-columns: 1fr; } .sidebar { position: static; } .hero h1 { font-size: 28px; } .levels-grid { grid-template-columns: 1fr; } }
-  @media (max-width: 600px) { .header, .hero, .intent-section, .combos-section, .main-layout { padding-left: 16px; padding-right: 16px; } }
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'DM Sans',sans-serif; background:#0a0a0f; color:#f0f0f5; min-height:100vh; }
+
+.header { padding:20px 24px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.06); }
+.logo { font-family:'Syne',sans-serif; font-size:18px; font-weight:800; }
+.logo span { color:#ff6b35; }
+.step-indicator { font-size:12px; color:#555; }
+.step-indicator strong { color:#ff6b35; }
+
+.wrapper { max-width:640px; margin:0 auto; padding:40px 24px 80px; }
+.step { display:none; }
+.step.active { display:block; }
+
+.step-label { font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#ff6b35; font-weight:500; margin-bottom:8px; }
+.step-title { font-family:'Syne',sans-serif; font-size:26px; font-weight:800; line-height:1.15; margin-bottom:8px; }
+.step-sub { font-size:14px; color:#666; line-height:1.6; margin-bottom:32px; }
+
+.progress-bar { height:2px; background:rgba(255,255,255,0.06); margin-bottom:32px; border-radius:2px; overflow:hidden; }
+.progress-fill { height:100%; background:#ff6b35; border-radius:2px; transition:width 0.3s; }
+
+/* OBJECTIVE */
+.obj-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
+.obj-card { background:#141418; border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:18px 16px; cursor:pointer; transition:all 0.18s; text-align:left; font-family:'DM Sans',sans-serif; width:100%; }
+.obj-card:hover { border-color:rgba(255,107,53,0.35); }
+.obj-card.active { border-color:#ff6b35; background:rgba(255,107,53,0.07); }
+.obj-icon { font-size:20px; margin-bottom:8px; display:block; }
+.obj-name { font-size:14px; font-weight:500; color:#f0f0f5; display:block; }
+.obj-desc { font-size:12px; color:#555; margin-top:3px; display:block; }
+
+/* SERVICE LIST */
+.svc-list { display:flex; flex-direction:column; gap:8px; margin-bottom:24px; }
+.svc-card { background:#141418; border:1px solid rgba(255,255,255,0.07); border-radius:10px; overflow:hidden; transition:border-color 0.18s; }
+.svc-card.selected { border-color:#ff6b35; }
+.svc-row { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; cursor:pointer; gap:12px; }
+.svc-left { display:flex; align-items:center; gap:12px; pointer-events:none; flex:1; }
+.svc-icon { font-size:18px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.05); border-radius:8px; flex-shrink:0; }
+.svc-name { font-size:14px; font-weight:500; }
+.svc-desc { font-size:12px; color:#555; margin-top:1px; }
+.svc-check { width:22px; height:22px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.12); flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:all 0.18s; pointer-events:none; }
+.svc-card.selected .svc-check { background:#ff6b35; border-color:#ff6b35; }
+.svc-check-inner { font-size:11px; color:white; display:none; }
+.svc-card.selected .svc-check-inner { display:block; }
+
+/* LEVELS */
+.levels-wrap { padding:0 16px 14px; border-top:1px solid rgba(255,255,255,0.05); display:none; }
+.svc-card.selected .levels-wrap { display:block; }
+.levels-label { font-size:11px; color:#444; text-transform:uppercase; letter-spacing:0.5px; margin:12px 0 8px; }
+.levels-row { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; align-items:stretch; }
+.levels-row-4 { display:grid; grid-template-columns:repeat(2,1fr); gap:6px; align-items:stretch; }
+.lvl-wrap { display:flex; flex-direction:column; gap:4px; }
+.lvl-btn { background:#0f0f14; border:1px solid rgba(255,255,255,0.07); border-radius:8px; padding:10px 8px 8px; cursor:pointer; text-align:left; font-family:'DM Sans',sans-serif; transition:all 0.15s; width:100%; display:block; flex:1; }
+.lvl-btn:hover { border-color:rgba(255,255,255,0.15); }
+.lvl-btn.active { border-color:#ff6b35; background:rgba(255,107,53,0.07); }
+.lvl-tier { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:3px; pointer-events:none; }
+.lvl-tier.low  { color:#4a9eff; }
+.lvl-tier.mid  { color:#ff6b35; }
+.lvl-tier.high { color:#2adb7c; }
+.lvl-name { font-size:12px; font-weight:500; color:#f0f0f5; pointer-events:none; margin-bottom:2px; }
+.lvl-price { font-size:12px; color:#666; pointer-events:none; }
+.lvl-tag { display:inline-block; font-size:9px; padding:1px 5px; border-radius:3px; margin-top:3px; pointer-events:none; }
+.lvl-tag.pop  { background:rgba(255,107,53,0.1); color:#ff6b35; }
+.lvl-tag.best { background:rgba(42,219,124,0.08); color:#2adb7c; }
+.lvl-details-btn { font-size:10px; font-weight:500; font-family:'DM Sans',sans-serif; border-radius:4px; padding:3px 8px; margin-top:6px; display:inline-block; cursor:pointer; pointer-events:all; border:1px solid; transition:opacity 0.15s; }
+.lvl-details-btn:hover { opacity:0.7; }
+.lvl-details-btn.det-low  { background:rgba(74,158,255,0.06);  border-color:rgba(74,158,255,0.22);  color:#4a9eff; }
+.lvl-details-btn.det-mid  { background:rgba(255,107,53,0.06);  border-color:rgba(255,107,53,0.22);  color:#ff6b35; }
+.lvl-details-btn.det-high { background:rgba(42,219,124,0.06);  border-color:rgba(42,219,124,0.22);  color:#2adb7c; }
+.svc-included-note { font-size:11px; color:#2adb7c; padding:8px 0 2px; }
+.lvl-nudge { font-size:10px; color:#555; margin-top:6px; line-height:1.4; font-style:italic; pointer-events:none; }
+
+/* COMBO HINT */
+.combo-hint { background:rgba(42,219,124,0.05); border:1px solid rgba(42,219,124,0.12); border-radius:8px; padding:12px 14px; margin-bottom:16px; display:none; }
+.combo-hint.show { display:block; }
+.combo-hint-label { font-size:10px; color:#2adb7c; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:3px; }
+.combo-hint-text { font-size:13px; color:#888; }
+
+/* MODAL */
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:999; display:none; align-items:flex-end; justify-content:center; }
+.modal-overlay.open { display:flex; }
+.modal { background:#18181f; border-radius:16px 16px 0 0; width:100%; max-width:640px; max-height:85vh; overflow-y:auto; padding:24px; }
+.modal-handle { width:36px; height:3px; background:rgba(255,255,255,0.15); border-radius:2px; margin:0 auto 20px; }
+.modal-svc-name { font-size:11px; color:#555; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; }
+.modal-tier-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:6px; display:inline-block; padding:2px 8px; border-radius:4px; }
+.tier-label-low  { color:#4a9eff; background:rgba(74,158,255,0.08); }
+.tier-label-mid  { color:#ff6b35; background:rgba(255,107,53,0.08); }
+.tier-label-high { color:#2adb7c; background:rgba(42,219,124,0.08); }
+.modal-title { font-family:'Syne',sans-serif; font-size:20px; font-weight:800; margin-bottom:4px; }
+.modal-price { font-size:22px; font-weight:500; margin-bottom:20px; }
+.modal-price.price-low  { color:#4a9eff; }
+.modal-price.price-mid  { color:#ff6b35; }
+.modal-price.price-high { color:#2adb7c; }
+.modal-items { display:flex; flex-direction:column; gap:8px; margin-bottom:24px; }
+.modal-item { display:flex; align-items:flex-start; gap:10px; font-size:14px; color:#ccc; line-height:1.5; }
+.modal-item-dot { width:6px; height:6px; border-radius:50%; margin-top:7px; flex-shrink:0; }
+.modal-item-dot.dot-low  { background:#4a9eff; }
+.modal-item-dot.dot-mid  { background:#ff6b35; }
+.modal-item-dot.dot-high { background:#2adb7c; }
+.modal-for { font-size:12px; color:#555; border-top:1px solid rgba(255,255,255,0.06); padding-top:14px; margin-bottom:20px; line-height:1.6; }
+.modal-select-btn { width:100%; background:#ff6b35; border:none; border-radius:10px; padding:13px; font-family:'Syne',sans-serif; font-size:14px; font-weight:700; color:white; cursor:pointer; }
+.modal-select-btn:hover { background:#ff8552; }
+.modal-close { width:100%; background:transparent; border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:11px; font-family:'DM Sans',sans-serif; font-size:13px; color:#555; cursor:pointer; margin-top:8px; }
+
+/* SUMMARY */
+.summary-box { background:#141418; border:1px solid rgba(255,255,255,0.07); border-radius:12px; overflow:hidden; margin-bottom:20px; }
+.summary-head { padding:12px 18px; border-bottom:1px solid rgba(255,255,255,0.05); font-size:11px; color:#444; text-transform:uppercase; letter-spacing:0.5px; }
+.summary-item { display:flex; justify-content:space-between; align-items:center; padding:10px 18px; border-bottom:1px solid rgba(255,255,255,0.04); }
+.summary-item:last-child { border:none; }
+.summary-item-name { font-size:13px; color:#f0f0f5; }
+.summary-item-level { font-size:11px; color:#444; margin-top:1px; }
+.summary-item-price { font-size:13px; color:#ff9a5c; font-weight:500; white-space:nowrap; }
+.summary-totals { padding:14px 18px; border-top:1px solid rgba(255,255,255,0.06); }
+.t-row { display:flex; justify-content:space-between; font-size:13px; margin-bottom:6px; color:#555; }
+.t-row.discount { color:#2adb7c; }
+.t-row.grand { color:#f0f0f5; font-size:20px; margin-top:12px; margin-bottom:0; }
+.t-row.grand span:last-child { font-family:'Syne',sans-serif; font-weight:800; color:#ff6b35; }
+.savings { background:rgba(42,219,124,0.06); border:1px solid rgba(42,219,124,0.12); border-radius:8px; padding:8px 12px; font-size:12px; color:#2adb7c; text-align:center; margin-top:12px; display:none; }
+.savings.show { display:block; }
+
+.discount-banner { background:rgba(255,107,53,0.07); border:1px solid rgba(255,107,53,0.18); border-radius:8px; padding:10px 14px; font-size:12px; color:#ff9a5c; margin-bottom:16px; display:none; }
+.discount-banner.show { display:block; }
+
+/* COUPON */
+.coupon-section { margin-bottom:20px; }
+.coupon-toggle { background:none; border:none; font-family:'DM Sans',sans-serif; font-size:13px; color:#4a9eff; cursor:pointer; padding:0; text-decoration:underline; text-underline-offset:2px; }
+.coupon-row { display:none; margin-top:8px; gap:8px; }
+.coupon-row.open { display:flex; }
+.coupon-input { flex:1; background:#141418; border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:9px 12px; font-size:13px; color:#f0f0f5; font-family:'DM Sans',sans-serif; outline:none; text-transform:uppercase; }
+.coupon-input:focus { border-color:#ff6b35; }
+.coupon-btn { background:#1e1e28; border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:9px 14px; font-size:13px; color:#f0f0f5; cursor:pointer; font-family:'DM Sans',sans-serif; white-space:nowrap; }
+.coupon-btn:hover { border-color:#ff6b35; color:#ff9a5c; }
+.coupon-msg { font-size:12px; margin-top:6px; }
+.coupon-msg.ok { color:#2adb7c; }
+.coupon-msg.err { color:#ef4444; }
+
+/* FORM */
+.form-title { font-size:11px; color:#444; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:10px; }
+.form-input { width:100%; background:#141418; border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:10px 14px; font-size:14px; color:#f0f0f5; font-family:'DM Sans',sans-serif; outline:none; margin-bottom:8px; transition:border-color 0.15s; }
+.form-input:focus { border-color:#ff6b35; }
+.consent { font-size:11px; color:#333; line-height:1.5; margin:4px 0 20px; }
+
+/* BUTTONS */
+.btn-primary { width:100%; background:#ff6b35; border:none; border-radius:10px; padding:14px; font-family:'Syne',sans-serif; font-size:15px; font-weight:700; color:white; cursor:pointer; transition:background 0.18s; margin-bottom:8px; }
+.btn-primary:hover { background:#ff8552; }
+.btn-primary:disabled { opacity:0.3; cursor:not-allowed; }
+.btn-secondary { width:100%; background:transparent; border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px; font-family:'DM Sans',sans-serif; font-size:14px; color:#555; cursor:pointer; transition:all 0.18s; }
+.btn-secondary:hover { border-color:rgba(255,255,255,0.15); color:#f0f0f5; }
+.btn-back { background:none; border:none; font-family:'DM Sans',sans-serif; font-size:13px; color:#444; cursor:pointer; margin-bottom:24px; display:inline-flex; align-items:center; gap:4px; }
+.btn-back:hover { color:#f0f0f5; }
+
+.score-pill { display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:500; padding:4px 10px; border-radius:20px; margin-bottom:16px; }
+.score-frio  { background:rgba(74,158,255,0.08); color:#4a9eff; border:1px solid rgba(74,158,255,0.18); }
+.score-morno { background:rgba(245,158,11,0.08); color:#f59e0b; border:1px solid rgba(245,158,11,0.18); }
+.score-quente{ background:rgba(42,219,124,0.08); color:#2adb7c; border:1px solid rgba(42,219,124,0.18); }
+
+@media(max-width:480px){
+  .step-title { font-size:22px; }
+  .levels-row { grid-template-columns:repeat(3,1fr); }
+}
 </style>
 </head>
 <body>
 
 <header class="header">
   <div class="logo">Agora<span>Digital</span></div>
-  <div class="header-badge">Montador de Pacotes</div>
+  <div class="step-indicator">Etapa <strong id="stepNum">1</strong> de 3</div>
 </header>
 
-<section class="hero">
-  <div class="hero-tag">Configure seu plano</div>
-  <h1>Monte seu pacote <em>Agora Digital</em></h1>
-  <p>Selecione os serviços que sua empresa precisa e veja em tempo real o investimento, entregas e benefícios. Quanto mais completo o pacote, maior o ganho em custo-benefício.</p>
-</section>
+<div class="wrapper">
 
-<section class="intent-section">
-  <div class="intent-label">O que sua empresa precisa hoje?</div>
-  <div class="intent-pills">
-    <button class="intent-pill" data-intent="vender">Vender mais</button>
-    <button class="intent-pill" data-intent="imagem">Melhorar imagem</button>
-    <button class="intent-pill" data-intent="leads">Gerar leads</button>
-    <button class="intent-pill" data-intent="presenca">Estruturar presença</button>
-    <button class="intent-pill" data-intent="escala">Escalar crescimento</button>
-  </div>
-</section>
-
-<section class="combos-section">
-  <div class="combos-title">Combos recomendados</div>
-  <div class="combos-grid">
-    <div class="combo-card" data-combo="presenca">
-      <div class="combo-name">Presença Digital</div>
-      <div class="combo-items">Social Essencial · Site Landing Page · SEO Inicial</div>
-      <div class="combo-apply">Aplicar este combo →</div>
+  <!-- STEP 1 -->
+  <div class="step active" id="step1">
+    <div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div>
+    <div class="step-label">Etapa 1</div>
+    <div class="step-title">O que sua empresa precisa agora?</div>
+    <div class="step-sub">Escolha o objetivo e montamos o pacote ideal para você.</div>
+    <div class="obj-grid">
+      <button class="obj-card" data-obj="vender"><span class="obj-icon">📈</span><span class="obj-name">Vender mais</span><span class="obj-desc">Atrair e converter clientes</span></button>
+      <button class="obj-card" data-obj="imagem"><span class="obj-icon">✨</span><span class="obj-name">Melhorar imagem</span><span class="obj-desc">Profissionalizar a marca</span></button>
+      <button class="obj-card" data-obj="leads"><span class="obj-icon">🎯</span><span class="obj-name">Gerar leads</span><span class="obj-desc">Captar contatos qualificados</span></button>
+      <button class="obj-card" data-obj="presenca"><span class="obj-icon">🌐</span><span class="obj-name">Estruturar presença</span><span class="obj-desc">Marcar território no digital</span></button>
+      <button class="obj-card" data-obj="escala"><span class="obj-icon">🚀</span><span class="obj-name">Escalar crescimento</span><span class="obj-desc">Crescer com estrutura</span></button>
+      <button class="obj-card" data-obj="custom"><span class="obj-icon">🛠️</span><span class="obj-name">Montar manualmente</span><span class="obj-desc">Escolho os serviços</span></button>
     </div>
-    <div class="combo-card" data-combo="crescimento">
-      <div class="combo-name">Crescimento Comercial</div>
-      <div class="combo-items">Social Crescimento · Tráfego Performance · Edição Pro</div>
-      <div class="combo-apply">Aplicar este combo →</div>
-    </div>
-    <div class="combo-card" data-combo="escala">
-      <div class="combo-name">Escala de Vendas</div>
-      <div class="combo-items">Social Autoridade · Tráfego Escala · Videomaker Pro</div>
-      <div class="combo-apply">Aplicar este combo →</div>
-    </div>
-    <div class="combo-card" data-combo="marca">
-      <div class="combo-name">Marca Completa</div>
-      <div class="combo-items">Social Autoridade · Tráfego Escala · Videomaker Full · Site Comercial · SEO Estratégico</div>
-      <div class="combo-apply">Aplicar este combo →</div>
-    </div>
-  </div>
-</section>
-
-<div class="main-layout">
-  <div>
-    <div class="service-group">
-      <div class="service-group-title">Conteúdo &amp; Redes Sociais</div>
-
-      <div id="card-social" class="service-card">
-        <div class="service-header" data-toggle="social">
-          <div class="service-info">
-            <div class="service-icon" style="background:rgba(168,85,247,0.15)">📱</div>
-            <div>
-              <div class="service-name">Social Media</div>
-              <div class="service-desc">Gestão profissional de conteúdo e estratégia de redes</div>
-            </div>
-          </div>
-          <div class="service-toggle"></div>
-        </div>
-        <div class="levels-panel">
-          <div class="levels-label">Escolha o nível</div>
-          <div class="levels-grid">
-            <button class="level-btn" data-svc="social" data-idx="0"><div class="level-tier low">Essencial</div><div class="level-name">Básico</div><div class="level-price">R$ 857,90</div></button>
-            <button class="level-btn" data-svc="social" data-idx="1"><div class="level-tier mid">Crescimento</div><div class="level-name">Pro</div><div class="level-price">R$ 1.197,90</div><span class="level-badge popular">Mais escolhido</span></button>
-            <button class="level-btn" data-svc="social" data-idx="2"><div class="level-tier high">Autoridade</div><div class="level-name">Full</div><div class="level-price">R$ 1.497,90</div><span class="level-badge best">Maior potencial</span></button>
-          </div>
-          <div class="level-details" id="details-social"><div class="details-title">Incluído neste plano</div><ul class="details-list" id="list-social"></ul></div>
-          <div class="upsell-hint" id="upsell-social"><span class="upsell-icon">💡</span><span>Seu plano pode ter mais resultado combinado com <strong>Tráfego Pago</strong>.</span></div>
-        </div>
-      </div>
-
-      <div id="card-videomaker" class="service-card">
-        <div class="service-header" data-toggle="videomaker">
-          <div class="service-info">
-            <div class="service-icon" style="background:rgba(239,68,68,0.15)">🎬</div>
-            <div>
-              <div class="service-name">Videomaker</div>
-              <div class="service-desc">Gravação profissional com direção, roteiro e edição inclusa</div>
-            </div>
-          </div>
-          <div class="service-toggle"></div>
-        </div>
-        <div class="levels-panel">
-          <div class="levels-label">Escolha o nível</div>
-          <div class="levels-grid">
-            <button class="level-btn" data-svc="videomaker" data-idx="0"><div class="level-tier low">Light</div><div class="level-name">4 vídeos/mês</div><div class="level-price">R$ 614,90</div></button>
-            <button class="level-btn" data-svc="videomaker" data-idx="1"><div class="level-tier mid">Pro</div><div class="level-name">8 vídeos/mês</div><div class="level-price">R$ 897,90</div><span class="level-badge popular">Mais escolhido</span></button>
-            <button class="level-btn" data-svc="videomaker" data-idx="2"><div class="level-tier high">Full</div><div class="level-name">12 vídeos/mês</div><div class="level-price">R$ 1.297,90</div><span class="level-badge best">Maior potencial</span></button>
-          </div>
-          <div class="level-details" id="details-videomaker"><div class="details-title">Incluído neste plano</div><ul class="details-list" id="list-videomaker"></ul></div>
-          <div class="upsell-hint" style="background:rgba(42,219,124,0.08);border-color:rgba(42,219,124,0.2);color:var(--green);display:flex" id="upsell-videomaker-info"><span class="upsell-icon">✅</span><span>Edição de vídeo já está <strong>inclusa</strong> neste plano.</span></div>
-        </div>
-      </div>
-
-      <div id="card-edicao" class="service-card">
-        <div class="service-header" data-toggle="edicao">
-          <div class="service-info">
-            <div class="service-icon" style="background:rgba(245,158,11,0.15)">✂️</div>
-            <div>
-              <div class="service-name">Edição de Vídeo</div>
-              <div class="service-desc">Edição profissional de vídeos já gravados</div>
-            </div>
-          </div>
-          <div class="service-toggle"></div>
-        </div>
-        <div class="levels-panel">
-          <div class="levels-label">Escolha o nível</div>
-          <div class="levels-grid">
-            <button class="level-btn" data-svc="edicao" data-idx="0"><div class="level-tier low">Light</div><div class="level-name">12 vídeos/mês</div><div class="level-price">R$ 257,90</div></button>
-            <button class="level-btn" data-svc="edicao" data-idx="1"><div class="level-tier mid">Pro</div><div class="level-name">20 vídeos/mês</div><div class="level-price">R$ 497,90</div><span class="level-badge popular">Mais escolhido</span></button>
-            <button class="level-btn" data-svc="edicao" data-idx="2"><div class="level-tier high">Full</div><div class="level-name">30 vídeos/mês</div><div class="level-price">R$ 797,90</div><span class="level-badge best">Maior potencial</span></button>
-          </div>
-          <div class="level-details" id="details-edicao"><div class="details-title">Incluído neste plano</div><ul class="details-list" id="list-edicao"></ul></div>
-          <div class="upsell-hint" id="upsell-edicao"><span class="upsell-icon">💡</span><span>Você pode aproveitar esses vídeos em anúncios com <strong>Tráfego Pago</strong>.</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="service-group">
-      <div class="service-group-title">Tráfego &amp; Performance</div>
-      <div id="card-trafego" class="service-card">
-        <div class="service-header" data-toggle="trafego">
-          <div class="service-info">
-            <div class="service-icon" style="background:rgba(74,158,255,0.15)">📊</div>
-            <div>
-              <div class="service-name">Tráfego Pago</div>
-              <div class="service-desc">Campanhas de anúncios em Meta Ads e Google</div>
-            </div>
-          </div>
-          <div class="service-toggle"></div>
-        </div>
-        <div class="levels-panel">
-          <div class="levels-label">Escolha o nível</div>
-          <div class="levels-grid">
-            <button class="level-btn" data-svc="trafego" data-idx="0"><div class="level-tier low">Light</div><div class="level-name">Meta Ads</div><div class="level-price">R$ 817,90</div></button>
-            <button class="level-btn" data-svc="trafego" data-idx="1"><div class="level-tier mid">Performance</div><div class="level-name">Meta + Google</div><div class="level-price">R$ 1.097,90</div><span class="level-badge popular">Mais escolhido</span></button>
-            <button class="level-btn" data-svc="trafego" data-idx="2"><div class="level-tier high">Escala</div><div class="level-name">Full Stack</div><div class="level-price">R$ 1.397,90</div><span class="level-badge best">Maior potencial</span></button>
-          </div>
-          <div class="level-details" id="details-trafego"><div class="details-title">Incluído neste plano</div><ul class="details-list" id="list-trafego"></ul></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="service-group">
-      <div class="service-group-title">Presença Digital</div>
-      <div id="card-site" class="service-card">
-        <div class="service-header" data-toggle="site">
-          <div class="service-info">
-            <div class="service-icon" style="background:rgba(42,219,124,0.15)">🌐</div>
-            <div>
-              <div class="service-name">Site</div>
-              <div class="service-desc">Desenvolvimento de sites comerciais e landing pages</div>
-            </div>
-          </div>
-          <div class="service-toggle"></div>
-        </div>
-        <div class="levels-panel">
-          <div class="levels-label">Escolha o nível</div>
-          <div class="levels-grid">
-            <button class="level-btn" data-svc="site" data-idx="0"><div class="level-tier low">Básico</div><div class="level-name">Landing Page</div><div class="level-price">R$ 637,90</div></button>
-            <button class="level-btn" data-svc="site" data-idx="1"><div class="level-tier mid">Comercial</div><div class="level-name">Site Completo</div><div class="level-price">R$ 1.197,90</div><span class="level-badge popular">Mais escolhido</span></button>
-            <button class="level-btn" data-svc="site" data-idx="2"><div class="level-tier high">Avançado</div><div class="level-name">Site Robusto</div><div class="level-price">R$ 1.697,90</div><span class="level-badge best">Maior potencial</span></button>
-          </div>
-          <div class="level-details" id="details-site"><div class="details-title">Incluído neste plano</div><ul class="details-list" id="list-site"></ul></div>
-          <div class="upsell-hint" id="upsell-site"><span class="upsell-icon">💡</span><span>SEO ajuda seu site a ganhar mais presença e relevância no Google.</span></div>
-        </div>
-      </div>
-
-      <div id="card-seo" class="service-card">
-        <div class="service-header" data-toggle="seo">
-          <div class="service-info">
-            <div class="service-icon" style="background:rgba(245,158,11,0.12)">🔍</div>
-            <div>
-              <div class="service-name">SEO / Google</div>
-              <div class="service-desc">Otimização para mecanismos de busca e presença orgânica</div>
-            </div>
-          </div>
-          <div class="service-toggle"></div>
-        </div>
-        <div class="levels-panel">
-          <div class="levels-label">Escolha o nível</div>
-          <div class="levels-grid">
-            <button class="level-btn" data-svc="seo" data-idx="0"><div class="level-tier low">Inicial</div><div class="level-name">Configuração</div><div class="level-price">R$ 167,90</div></button>
-            <button class="level-btn" data-svc="seo" data-idx="1"><div class="level-tier mid">Básico</div><div class="level-name">SEO Mensal</div><div class="level-price">R$ 347,90</div><span class="level-badge popular">Mais escolhido</span></button>
-            <button class="level-btn" data-svc="seo" data-idx="2"><div class="level-tier high">Estratégico</div><div class="level-name">SEO Local Full</div><div class="level-price">R$ 597,90</div><span class="level-badge best">Maior potencial</span></button>
-          </div>
-          <div class="level-details" id="details-seo"><div class="details-title">Incluído neste plano</div><ul class="details-list" id="list-seo"></ul></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="service-group">
-      <div class="service-group-title">Eventos</div>
-      <div id="card-eventos" class="service-card">
-        <div class="service-header" data-toggle="eventos">
-          <div class="service-info">
-            <div class="service-icon" style="background:rgba(168,85,247,0.12)">📸</div>
-            <div>
-              <div class="service-name">Cobertura de Eventos</div>
-              <div class="service-desc">Foto, vídeo e cobertura completa de eventos</div>
-            </div>
-          </div>
-          <div class="service-toggle"></div>
-        </div>
-        <div class="levels-panel">
-          <div class="levels-label">Escolha o nível</div>
-          <div class="levels-grid" style="grid-template-columns:repeat(2,1fr)">
-            <button class="level-btn" data-svc="eventos" data-idx="0"><div class="level-tier low">Stories</div><div class="level-name">Storymaker</div><div class="level-price">R$ 450,97</div></button>
-            <button class="level-btn" data-svc="eventos" data-idx="1"><div class="level-tier mid">Foto</div><div class="level-name">Fotografia</div><div class="level-price">R$ 750,47</div></button>
-            <button class="level-btn" data-svc="eventos" data-idx="2"><div class="level-tier high">Vídeo</div><div class="level-name">Videomaker</div><div class="level-price">R$ 1.050,90</div></button>
-            <button class="level-btn" data-svc="eventos" data-idx="3"><div class="level-tier high" style="color:var(--purple)">Completo</div><div class="level-name">Pacote Total</div><div class="level-price">R$ 2.200,47</div><span class="level-badge best">Maior potencial</span></button>
-          </div>
-          <div class="level-details" id="details-eventos"><div class="details-title">Incluído neste plano</div><ul class="details-list" id="list-eventos"></ul></div>
-        </div>
-      </div>
-    </div>
+    <button class="btn-primary" id="btnStep1" disabled>Continuar →</button>
   </div>
 
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <div class="resume-card">
-      <div class="resume-header">
-        <span style="font-size:16px">📋</span>
-        <div class="resume-header-title">Resumo do seu plano</div>
-      </div>
-      <div class="resume-body">
-        <div class="progress-section">
-          <div class="progress-label"><span>Nível do pacote</span><span id="progressPct">0%</span></div>
-          <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
-          <div class="progress-stage" id="progressStage">Nenhum serviço selecionado</div>
-        </div>
-        <div class="resume-items" id="resumeItems"><div class="resume-empty">Selecione serviços ao lado para montar seu plano</div></div>
-        <div class="deliverables" id="deliverables">
-          <div class="deliverables-title">Entregas mensais do pacote</div>
-          <div class="deliverables-grid" id="delivGrid"></div>
-        </div>
-        <div class="discount-badge" id="discountBadge"><span>🏷️</span><span id="discountBadgeText"></span></div>
-        <div class="coupon-section">
-          <button class="coupon-toggle" id="btnCouponToggle">Tenho um cupom</button>
-          <div class="coupon-input-row" id="couponRow">
-            <input class="coupon-input" id="couponCode" type="text" placeholder="EX: AGORA10" maxlength="20">
-            <button class="coupon-apply-btn" id="btnApplyCoupon">Aplicar</button>
-          </div>
-          <div class="coupon-msg" id="couponMsg"></div>
-        </div>
-        <div class="total-divider"></div>
-        <div class="total-row"><span class="total-label">Subtotal</span><span class="total-val" id="subtotalVal">R$ 0,00</span></div>
-        <div class="total-row" id="discountRow" style="display:none"><span class="total-label">Desconto automático</span><span class="discount-val" id="discountVal"></span></div>
-        <div class="total-row" id="couponDiscRow" style="display:none"><span class="total-label">Cupom</span><span class="discount-val" id="couponDiscVal"></span></div>
-        <div class="total-divider"></div>
-        <div class="total-row"><span class="grand-label">Total</span><span class="grand-val" id="grandVal">R$ 0,00</span></div>
-        <div class="savings-badge" id="savingsBadge"></div>
-        <div id="scoreBadge"></div>
-        <div class="lead-form">
-          <div class="form-label">Seus dados (opcional)</div>
-          <div class="form-row"><input class="form-input" id="fname" type="text" placeholder="Seu nome"></div>
-          <div class="form-row"><input class="form-input" id="fwhats" type="tel" placeholder="WhatsApp (ex: 21999999999)"></div>
-          <div class="form-row"><input class="form-input" id="fempresa" type="text" placeholder="Empresa (opcional)"></div>
-          <div class="form-row"><input class="form-input" id="fsegmento" type="text" placeholder="Segmento (opcional)"></div>
-          <div class="consent-text">Ao enviar, você concorda com o uso dos dados para contato comercial pela Agora Digital.</div>
-        </div>
-        <button class="cta-primary" id="btnWhats" disabled>💬 Receber proposta no WhatsApp</button>
-        <button class="cta-secondary" id="btnFalar">Falar com a Agora Digital</button>
-        <div style="margin-top:8px;font-size:11px;color:var(--text2);text-align:center;line-height:1.5">
-          ⚡ Início em até 3 dias úteis após fechamento<br>
-          Condições promocionais podem variar conforme campanha ativa.
-        </div>
+  <!-- STEP 2 -->
+  <div class="step" id="step2">
+    <div class="progress-bar"><div class="progress-fill" style="width:66%"></div></div>
+    <button class="btn-back" id="btnBack1">← Voltar</button>
+    <div class="step-label">Etapa 2</div>
+    <div class="step-title" id="step2Title">Seu pacote sugerido</div>
+    <div class="step-sub">Clique em <strong style="color:#f0f0f5">Ver detalhes</strong> em qualquer nível para ver o que está incluso. Ajuste como quiser.</div>
+    <div class="combo-hint" id="comboHint">
+      <div class="combo-hint-label">Pacote recomendado para seu objetivo</div>
+      <div class="combo-hint-text" id="comboHintText"></div>
+    </div>
+    <div class="svc-list" id="svcList"></div>
+    <button class="btn-primary" id="btnStep2" disabled>Ver resumo →</button>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step" id="step3">
+    <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+    <button class="btn-back" id="btnBack2">← Voltar</button>
+    <div class="step-label">Etapa 3</div>
+    <div class="step-title">Resumo do seu plano</div>
+    <div class="step-sub">Confira, preencha seus dados e receba a proposta no WhatsApp.</div>
+    <div id="scorePill"></div>
+    <div class="discount-banner" id="discountBanner"></div>
+    <div class="summary-box">
+      <div class="summary-head">Serviços incluídos</div>
+      <div id="summaryItems"></div>
+      <div class="summary-totals">
+        <div class="t-row"><span>Subtotal</span><span id="valSubtotal">R$ 0,00</span></div>
+        <div class="t-row discount" id="rowDiscount" style="display:none"><span id="lblDiscount"></span><span id="valDiscount"></span></div>
+        <div class="t-row discount" id="rowCoupon" style="display:none"><span id="lblCoupon"></span><span id="valCoupon"></span></div>
+        <div class="t-row grand"><span>Total</span><span id="valGrand">R$ 0,00</span></div>
+        <div class="savings" id="savingsMsg"></div>
       </div>
     </div>
+    <div class="coupon-section">
+      <button class="coupon-toggle" id="btnCouponToggle">Tenho um cupom de desconto</button>
+      <div class="coupon-row" id="couponRow">
+        <input class="coupon-input" id="couponCode" type="text" placeholder="AGORA10" maxlength="20">
+        <button class="coupon-btn" id="btnApplyCoupon">Aplicar</button>
+      </div>
+      <div class="coupon-msg" id="couponMsg"></div>
+    </div>
+    <div class="form-title">Seus dados</div>
+    <input class="form-input" id="fname" type="text" placeholder="Seu nome *">
+    <input class="form-input" id="fwhats" type="tel" placeholder="WhatsApp * (ex: 21999999999)">
+    <input class="form-input" id="fempresa" type="text" placeholder="Empresa (opcional)">
+    <input class="form-input" id="fsegmento" type="text" placeholder="Segmento (opcional)">
+    <div class="consent">Ao enviar, você concorda com o uso dos dados para contato comercial pela Agora Digital.</div>
+    <button class="btn-primary" id="btnWhats">💬 Receber proposta no WhatsApp</button>
+    <button class="btn-secondary" id="btnFalar">Falar com a equipe</button>
+    <div style="margin-top:16px;font-size:11px;color:#2a2a2a;text-align:center;line-height:1.6">⚡ Início em até 3 dias úteis após fechamento</div>
+  </div>
+</div>
+
+<!-- MODAL DE DETALHES -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-svc-name" id="modalSvcName"></div>
+    <div class="modal-tier-label" id="modalTierLabel"></div>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-price" id="modalPrice"></div>
+    <div class="modal-items" id="modalItems"></div>
+    <div class="modal-for" id="modalFor"></div>
+    <button class="modal-select-btn" id="modalSelectBtn">Selecionar este plano</button>
+    <button class="modal-close" id="modalClose">Fechar</button>
   </div>
 </div>
 
 <script>
-var WHATSAPP_NUMBER = '5521971107509';
-var SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyg4Up9wT-9dmnPTQP2mRHaqXgB0vdNkP-CgmAQPuaaKU_kbsH_IhT6qow57f_J8ZuWzQ/exec';
+var WA = '5521971107509';
+var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyg4Up9wT-9dmnPTQP2mRHaqXgB0vdNkP-CgmAQPuaaKU_kbsH_IhT6qow57f_J8ZuWzQ/exec';
 
 var SERVICES = {
-  social: { name: 'Social Media', levels: [
-    { name: 'Essencial', tier: 'low', price: 857.90, items: ['12 posts/mês','8 stories/mês','Planejamento básico','Calendário de conteúdo','Organização do perfil'] },
-    { name: 'Crescimento', tier: 'mid', price: 1197.90, items: ['16 posts/mês','12 stories/mês','Estratégia de posicionamento','Conteúdo focado em conversão','Ajustes de comunicação'] },
-    { name: 'Autoridade', tier: 'high', price: 1497.90, items: ['20+ posts/mês','Stories contínuos','Posicionamento de marca','Estratégia avançada','Integração com tráfego'] }
+  social: { name:'Social Media', icon:'📱', desc:'Gestão de redes sociais', levels:[
+    { name:'Essencial', tier:'low', price:857.90,
+      items:['12 posts por mês','8 stories por mês','Planejamento de conteúdo','Calendário editorial','Organização e otimização do perfil'],
+      for:'Indicado para empresas que estão começando a construir presença nas redes sociais.' },
+    { name:'Crescimento', tier:'mid', price:1197.90,
+      items:['16 posts por mês','12 stories por mês','Estratégia de posicionamento','Conteúdo focado em conversão','Ajustes de comunicação e identidade'],
+      for:'Indicado para empresas que já têm presença e querem crescer com estratégia.' },
+    { name:'Autoridade', tier:'high', price:1497.90,
+      items:['20+ posts por mês','Stories contínuos e estratégicos','Posicionamento de marca','Estratégia avançada de conteúdo','Integração com tráfego pago'],
+      for:'Indicado para empresas que querem se tornar referência no seu segmento.' }
   ]},
-  videomaker: { name: 'Videomaker', levels: [
-    { name: 'Light', tier: 'low', price: 614.90, items: ['4 vídeos/mês','10 fotos/mês','1 dia de gravação','Captação básica','Edição simples'] },
-    { name: 'Pro', tier: 'mid', price: 897.90, items: ['8 vídeos/mês','20 fotos/mês','2 dias de gravação','Roteiro básico','Edição profissional'] },
-    { name: 'Full', tier: 'high', price: 1297.90, items: ['12 vídeos/mês','30 fotos/mês','4 dias de gravação','Roteiro estratégico','Edição avançada'] }
+  trafego: { name:'Tráfego Pago', icon:'📊', desc:'Anúncios em Meta Ads e Google', levels:[
+    { name:'Light Meta Ads', tier:'low', price:817.90,
+      items:['Até 3 campanhas ativas','Até 10 criativos por mês','Segmentação por interesse e região','Otimização semanal','Relatório mensal'],
+      for:'Indicado para quem está começando com anúncios e quer testar o canal.' },
+    { name:'Performance', tier:'mid', price:1097.90,
+      items:['Até 6 campanhas ativas','Até 20 criativos por mês','Meta Ads + Google básico','Remarketing e funil de captação','Otimização 2x por semana','Relatório com análise'],
+      for:'Indicado para empresas que querem gerar leads e vendas de forma consistente.' },
+    { name:'Escala Full Stack', tier:'high', price:1397.90,
+      items:['Campanhas escaláveis','Até 30 criativos por mês','Testes A/B contínuos','Meta Ads avançado + Google completo','Estratégia de atração, nutrição e conversão','Otimização contínua com relatórios detalhados'],
+      for:'Indicado para empresas prontas para crescer com alta performance e volume.' }
   ]},
-  edicao: { name: 'Edição de Vídeo', levels: [
-    { name: 'Light', tier: 'low', price: 257.90, items: ['12 vídeos editados/mês','18 imagens','Corte e montagem','Legenda básica','Entrega em 48h'] },
-    { name: 'Pro', tier: 'mid', price: 497.90, items: ['20 vídeos editados/mês','30 imagens','Legendas dinâmicas','Cortes para retenção','Padronização de identidade'] },
-    { name: 'Full', tier: 'high', price: 797.90, items: ['30 vídeos editados/mês','50 imagens','Edição focada em conversão','Storytelling','Adaptação para tráfego'] }
+  videomaker: { name:'Videomaker', icon:'🎬', desc:'Gravação profissional com edição inclusa', levels:[
+    { name:'Light', tier:'low', price:614.90,
+      items:['4 vídeos por mês','10 fotos por mês','1 dia de gravação','Captação e edição básica','Conteúdo para redes sociais'],
+      for:'Indicado para quem quer começar a produzir vídeo com custo acessível.' },
+    { name:'Pro', tier:'mid', price:897.90,
+      items:['8 vídeos por mês','20 fotos por mês','2 dias de gravação','Roteiro básico e direção','Edição profissional focada em engajamento'],
+      for:'Indicado para empresas que querem conteúdo em vídeo de qualidade regularmente.' },
+    { name:'Full', tier:'high', price:1297.90,
+      items:['12 vídeos por mês','30 fotos por mês','Até 4 dias de gravação','Roteiro estratégico completo','Direção profissional','Edição avançada com planejamento mensal'],
+      for:'Indicado para marcas que apostam no vídeo como principal canal de comunicação.' }
   ]},
-  trafego: { name: 'Tráfego Pago', levels: [
-    { name: 'Light Meta Ads', tier: 'low', price: 817.90, items: ['3 campanhas ativas','5 conjuntos','10 criativos/mês','Meta Ads','Relatório mensal'] },
-    { name: 'Performance Meta+Google', tier: 'mid', price: 1097.90, items: ['6 campanhas ativas','10 conjuntos','20 criativos/mês','Meta Ads + Google','Remarketing','Otimização 2x/semana'] },
-    { name: 'Escala Full Stack', tier: 'high', price: 1397.90, items: ['Campanhas escaláveis','30 criativos/mês','Testes A/B','Meta Ads avançado','Google Completo','Otimização contínua'] }
+  edicao: { name:'Edição de Vídeo', icon:'✂️', desc:'Edição de vídeos já gravados', levels:[
+    { name:'Light', tier:'low', price:257.90,
+      items:['Até 12 vídeos editados por mês','Até 18 imagens tratadas','Corte, montagem e legenda básica','Ajuste de áudio e cor','Entrega em até 48h'],
+      for:'Indicado para quem já grava e precisa de edição ágil e acessível.' },
+    { name:'Pro', tier:'mid', price:497.90,
+      items:['Até 20 vídeos editados por mês','Até 30 imagens','Legendas dinâmicas','Cortes estratégicos para retenção','Identidade visual aplicada'],
+      for:'Indicado para criadores e empresas com produção regular de conteúdo.' },
+    { name:'Full', tier:'high', price:797.90,
+      items:['Até 30 vídeos editados por mês','Até 50 imagens','Edição avançada com storytelling','Ganchos de abertura para retenção','Adaptação para tráfego pago','Ajustes ilimitados no mês'],
+      for:'Indicado para quem usa vídeo como principal estratégia de vendas e tráfego.' }
   ]},
-  site: { name: 'Site', levels: [
-    { name: 'Landing Page', tier: 'low', price: 637.90, items: ['Página institucional/comercial','Design responsivo','Estrutura de conversão','Botão WhatsApp'] },
-    { name: 'Site Comercial', tier: 'mid', price: 1197.90, items: ['Múltiplas seções','Identidade visual aplicada','Estrutura comercial completa','Mais áreas de apresentação'] },
-    { name: 'Site Avançado', tier: 'high', price: 1697.90, items: ['Estrutura robusta','Páginas extras','Foco comercial e institucional','Melhor experiência de navegação'] }
+  site: { name:'Site', icon:'🌐', desc:'Sites e landing pages comerciais', levels:[
+    { name:'Landing Page', tier:'low', price:637.90,
+      items:['Página institucional ou comercial','Design responsivo para mobile','Estrutura de conversão','Botão direto para WhatsApp','Entrega rápida'],
+      for:'Indicado para quem precisa de presença online básica e funcional.' },
+    { name:'Site Comercial', tier:'mid', price:1197.90,
+      items:['Múltiplas seções e páginas','Identidade visual aplicada','Estrutura comercial completa','Seções de serviços, depoimentos e contato','Integração com WhatsApp e redes'],
+      for:'Indicado para empresas que querem um site completo para representar a marca.' },
+    { name:'Site Avançado', tier:'high', price:1697.90,
+      items:['Estrutura robusta com páginas extras','Experiência de navegação otimizada','Foco comercial e institucional','Melhor performance e usabilidade','Integrações personalizadas'],
+      for:'Indicado para empresas que precisam de uma presença digital sólida e profissional.' }
   ]},
-  seo: { name: 'SEO / Google', levels: [
-    { name: 'Configuração Inicial', tier: 'low', price: 167.90, items: ['Configuração Google','Ajustes básicos de presença'] },
-    { name: 'SEO Básico', tier: 'mid', price: 347.90, items: ['SEO mensal básico','Estruturação de otimização'] },
-    { name: 'SEO Estratégico', tier: 'high', price: 597.90, items: ['SEO local estratégico','Otimização robusta','Reforço de posicionamento'] }
+  seo: { name:'SEO / Google', icon:'🔍', desc:'Presença orgânica no Google', levels:[
+    { name:'Configuração Inicial', tier:'low', price:167.90,
+      items:['Configuração de presença no Google','Google Meu Negócio','Ajustes técnicos básicos','Verificação e indexação'],
+      for:'Indicado para quem ainda não tem presença configurada no Google.' },
+    { name:'SEO Básico', tier:'mid', price:347.90,
+      items:['SEO mensal contínuo','Otimização de páginas e conteúdo','Palavras-chave estratégicas','Relatório de posicionamento'],
+      for:'Indicado para empresas que querem aparecer nas buscas do Google regularmente.' },
+    { name:'SEO Estratégico', tier:'high', price:597.90,
+      items:['SEO local estratégico completo','Otimização robusta de conteúdo','Construção de autoridade de domínio','Relatórios detalhados de evolução','Reforço de posicionamento contínuo'],
+      for:'Indicado para empresas que querem dominar as buscas no seu segmento e região.' }
   ]},
-  eventos: { name: 'Cobertura de Eventos', levels: [
-    { name: 'Storymaker para Eventos', tier: 'low', price: 450.97, items: ['Stories do evento','Cobertura básica'] },
-    { name: 'Fotografia para Eventos', tier: 'mid', price: 750.47, items: ['Fotografia profissional','Entrega de fotos editadas'] },
-    { name: 'Videomaker para Eventos', tier: 'high', price: 1050.90, items: ['Vídeo profissional do evento','Edição completa'] },
-    { name: 'Pacote Evento Completo', tier: 'high', price: 2200.47, items: ['Foto + Vídeo + Stories','Cobertura completa','Edição avançada'] }
+  eventos: { name:'Cobertura de Eventos', icon:'📸', desc:'Foto e vídeo de eventos', levels:[
+    { name:'Storymaker', tier:'low', price:450.97,
+      items:['Cobertura de stories do evento','Conteúdo para redes sociais','Entrega no mesmo dia'],
+      for:'Indicado para quem quer registrar o evento para as redes de forma ágil.' },
+    { name:'Fotografia', tier:'mid', price:750.47,
+      items:['Fotografia profissional do evento','Tratamento e edição das fotos','Entrega de galeria completa'],
+      for:'Indicado para quem precisa de fotos profissionais para divulgação.' },
+    { name:'Videomaker', tier:'high', price:1050.90,
+      items:['Gravação profissional em vídeo','Edição completa do material','Conteúdo para redes e divulgação'],
+      for:'Indicado para quem quer um vídeo profissional do evento para divulgar.' },
+    { name:'Pacote Completo', tier:'high', price:2200.47,
+      items:['Foto + Vídeo + Stories','Cobertura completa do evento','Edição avançada de todo o material','Entrega organizada por formato'],
+      for:'Indicado para eventos que precisam de cobertura total e profissional.' }
   ]}
 };
 
-var COUPONS = {
-  'AGORA5':        { type: 'pct', value: 5,  accumulate: false },
-  'AGORA10':       { type: 'pct', value: 10, accumulate: false },
-  'CLIENTENOVO':   { type: 'pct', value: 8,  accumulate: false },
-  'FECHOUHOJE':    { type: 'pct', value: 12, accumulate: false },
-  'PERFORMANCE10': { type: 'pct', value: 10, accumulate: false }
-};
-
 var COMBOS = {
-  presenca:    { social: 0, site: 0, seo: 0 },
-  crescimento: { social: 1, trafego: 1, edicao: 1 },
-  escala:      { social: 2, trafego: 2, videomaker: 1 },
-  marca:       { social: 2, trafego: 2, videomaker: 2, site: 1, seo: 2 }
+  vender:   { svcs:['social','trafego','edicao'],     levels:[1,1,1], label:'Social Media + Tráfego Pago + Edição de Vídeo' },
+  imagem:   { svcs:['social','site','seo'],           levels:[1,1,1], label:'Social Media + Site + SEO' },
+  leads:    { svcs:['trafego','social','site'],       levels:[1,1,0], label:'Tráfego Pago + Social Media + Site' },
+  presenca: { svcs:['social','site','seo'],           levels:[0,0,0], label:'Social Media + Site + SEO' },
+  escala:   { svcs:['social','trafego','videomaker'], levels:[2,2,1], label:'Social Media + Tráfego Pago + Videomaker' },
+  custom:   { svcs:[], levels:[], label:'' }
 };
 
-var INTENT_COMBOS = { vender: 'escala', imagem: 'presenca', leads: 'crescimento', presenca: 'presenca', escala: 'marca' };
+var COUPONS = {
+  'AGORA5':        { type:'pct', value:5,  accumulate:false },
+  'AGORA10':       { type:'pct', value:10, accumulate:false },
+  'CLIENTENOVO':   { type:'pct', value:8,  accumulate:false },
+  'FECHOUHOJE':    { type:'pct', value:12, accumulate:false },
+  'PERFORMANCE10': { type:'pct', value:10, accumulate:false }
+};
 
-var state = { selected: {}, coupon: null };
+var state = { obj:null, selected:{}, coupon:null, _calc:null };
+var modalState = { svc:null, idx:null };
 
-function fmt(n) { return 'R$ ' + n.toFixed(2).replace('.', ','); }
+function fmt(n){ return 'R$ '+n.toFixed(2).replace('.',','); }
 
-function toggleService(svc) {
-  var card = document.getElementById('card-' + svc);
-  if (card.classList.contains('selected')) {
-    card.classList.remove('selected');
-    delete state.selected[svc];
-    updateUI();
-  } else {
-    selectLevel(svc, 0);
-  }
+function showStep(n){
+  document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById('step'+n).classList.add('active');
+  document.getElementById('stepNum').textContent = n;
+  window.scrollTo(0,0);
 }
 
-function selectLevel(svc, idx) {
-  var card = document.getElementById('card-' + svc);
-  card.classList.add('selected');
-  state.selected[svc] = idx;
-
-  card.querySelectorAll('.level-btn').forEach(function(b, i) {
-    b.classList.toggle('active', i === idx);
+// STEP 1
+document.querySelectorAll('.obj-card').forEach(function(card){
+  card.addEventListener('click', function(){
+    document.querySelectorAll('.obj-card').forEach(function(c){ c.classList.remove('active'); });
+    card.classList.add('active');
+    state.obj = card.getAttribute('data-obj');
+    document.getElementById('btnStep1').disabled = false;
   });
+});
 
-  var detailsEl = document.getElementById('details-' + svc);
-  var listEl = document.getElementById('list-' + svc);
-  var levelData = SERVICES[svc].levels[idx];
-  if (detailsEl && listEl && levelData) {
-    detailsEl.classList.add('visible');
-    listEl.innerHTML = levelData.items.map(function(i) { return '<li>' + i + '</li>'; }).join('');
-  }
+document.getElementById('btnStep1').addEventListener('click', function(){
+  if(!state.obj) return;
+  buildStep2();
+  showStep(2);
+});
 
-  if (svc === 'videomaker') {
-    var ec = document.getElementById('card-edicao');
-    ec.classList.remove('selected');
-    delete state.selected['edicao'];
-  }
-  if (svc === 'edicao') {
-    var vc = document.getElementById('card-videomaker');
-    vc.classList.remove('selected');
-    delete state.selected['videomaker'];
-  }
-
-  updateUI();
-}
-
-function applyCombo(name) {
-  Object.keys(SERVICES).forEach(function(svc) {
-    var card = document.getElementById('card-' + svc);
-    card.classList.remove('selected');
-    card.querySelectorAll('.level-btn').forEach(function(b) { b.classList.remove('active'); });
-    var d = document.getElementById('details-' + svc);
-    if (d) d.classList.remove('visible');
-  });
+// STEP 2
+function buildStep2(){
+  var combo = COMBOS[state.obj];
   state.selected = {};
 
-  var combo = COMBOS[name];
-  if (!combo) return;
-  Object.keys(combo).forEach(function(svc) {
-    var idx = combo[svc];
-    state.selected[svc] = idx;
-    var card = document.getElementById('card-' + svc);
-    card.classList.add('selected');
-    card.querySelectorAll('.level-btn').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
-    var detailsEl = document.getElementById('details-' + svc);
-    var listEl = document.getElementById('list-' + svc);
-    if (detailsEl && listEl) {
-      var level = SERVICES[svc].levels[idx];
-      detailsEl.classList.add('visible');
-      listEl.innerHTML = level.items.map(function(i) { return '<li>' + i + '</li>'; }).join('');
-    }
-  });
-  updateUI();
+  if(state.obj !== 'custom' && combo.svcs.length > 0){
+    combo.svcs.forEach(function(svc,i){ state.selected[svc] = combo.levels[i]; });
+    document.getElementById('step2Title').textContent = 'Pacote sugerido para você';
+    var hint = document.getElementById('comboHint');
+    hint.classList.add('show');
+    document.getElementById('comboHintText').textContent = combo.label;
+  } else {
+    document.getElementById('step2Title').textContent = 'Escolha seus serviços';
+    document.getElementById('comboHint').classList.remove('show');
+  }
+  renderSvcList();
+  updateStep2Btn();
 }
 
-function updateUI() {
-  var keys = Object.keys(state.selected);
-  var numSelected = keys.length;
+function renderSvcList(){
+  var list = document.getElementById('svcList');
+  list.innerHTML = '';
+  Object.keys(SERVICES).forEach(function(svcKey){
+    var svc = SERVICES[svcKey];
+    var isSelected = svcKey in state.selected;
+    var selIdx = isSelected ? state.selected[svcKey] : 0;
+    var isDisabled = svcKey === 'edicao' && 'videomaker' in state.selected;
 
-  var hasSocial  = 'social'   in state.selected;
-  var hasTrafego = 'trafego'  in state.selected;
-  var hasSite    = 'site'     in state.selected;
-  var hasSeo     = 'seo'      in state.selected;
-  var hasEdicao  = 'edicao'   in state.selected;
-  var hasVM      = 'videomaker' in state.selected;
+    var card = document.createElement('div');
+    card.className = 'svc-card'+(isSelected?' selected':'');
+    card.id = 'scard-'+svcKey;
+    if(isDisabled){ card.style.opacity='0.35'; card.style.pointerEvents='none'; }
 
-  function showHint(id, cond) {
-    var el = document.getElementById(id);
-    if (el) el.classList.toggle('show', cond);
-  }
-  showHint('upsell-social', hasSocial && !hasTrafego);
-  showHint('upsell-edicao', hasEdicao && !hasTrafego && !hasSocial);
-  showHint('upsell-site', hasSite && !hasSeo);
+    var lvlCount = svc.levels.length;
+    var colStyle = lvlCount === 4 ? 'grid-template-columns:repeat(2,1fr)' : 'grid-template-columns:repeat(3,1fr)';
 
-  var edicaoCard = document.getElementById('card-edicao');
-  edicaoCard.style.opacity = hasVM ? '0.5' : '1';
-  edicaoCard.style.pointerEvents = hasVM ? 'none' : '';
-
-  var subtotal = 0;
-  var items = [];
-  keys.forEach(function(svc) {
-    var idx = state.selected[svc];
-    var level = SERVICES[svc].levels[idx];
-    if (!level) return;
-    subtotal += level.price;
-    items.push({ svc: svc, idx: idx, name: SERVICES[svc].name, level: level.name, price: level.price, tier: level.tier });
-  });
-
-  var discountPct = 0, discountName = '';
-  if (numSelected >= 4)      { discountPct = 12; discountName = 'Combo Escala (4+ serviços)'; }
-  else if (numSelected === 3) { discountPct = 10; discountName = 'Combo Performance (3 serviços)'; }
-  else if (numSelected === 2) { discountPct = 5;  discountName = 'Combo Inicial (2 serviços)'; }
-
-  var autoDiscount = subtotal * discountPct / 100;
-
-  var couponDisc = 0;
-  if (state.coupon) {
-    var coup = COUPONS[state.coupon];
-    if (coup) {
-      if (coup.accumulate || autoDiscount === 0) {
-        couponDisc = coup.type === 'pct' ? subtotal * coup.value / 100 : coup.value;
-      }
-    }
-  }
-
-  var grand = subtotal - autoDiscount - couponDisc;
-
-  var resumeEl = document.getElementById('resumeItems');
-  resumeEl.innerHTML = items.length === 0
-    ? '<div class="resume-empty">Selecione serviços ao lado para montar seu plano</div>'
-    : items.map(function(it) {
-        return '<div class="resume-item"><div class="resume-item-name">' + it.name + '<div class="resume-item-sub">' + it.level + '</div></div><div class="resume-item-price">' + fmt(it.price) + '</div></div>';
-      }).join('');
-
-  var delivEl = document.getElementById('deliverables');
-  var delivGrid = document.getElementById('delivGrid');
-  var delivItems = computeDeliverables(items);
-  if (delivItems.length > 0) {
-    delivEl.classList.add('show');
-    delivGrid.innerHTML = delivItems.map(function(d) { return '<div class="deliv-item"><strong>' + d.val + '</strong>&nbsp;' + d.label + '</div>'; }).join('');
-  } else {
-    delivEl.classList.remove('show');
-  }
-
-  var badgeEl = document.getElementById('discountBadge');
-  if (discountPct > 0) {
-    badgeEl.classList.add('show');
-    document.getElementById('discountBadgeText').textContent = discountName + ' — ' + discountPct + '% de desconto automático';
-  } else {
-    badgeEl.classList.remove('show');
-  }
-
-  document.getElementById('subtotalVal').textContent = fmt(subtotal);
-  var discRowEl = document.getElementById('discountRow');
-  discRowEl.style.display = autoDiscount > 0 ? 'flex' : 'none';
-  if (autoDiscount > 0) document.getElementById('discountVal').textContent = '- ' + fmt(autoDiscount);
-
-  var couponRowEl = document.getElementById('couponDiscRow');
-  couponRowEl.style.display = couponDisc > 0 ? 'flex' : 'none';
-  if (couponDisc > 0) document.getElementById('couponDiscVal').textContent = '- ' + fmt(couponDisc);
-
-  document.getElementById('grandVal').textContent = fmt(grand);
-
-  var savingsEl = document.getElementById('savingsBadge');
-  var totalDiscount = autoDiscount + couponDisc;
-  if (totalDiscount > 0) {
-    savingsEl.classList.add('show');
-    savingsEl.textContent = 'Você economizou ' + fmt(totalDiscount) + ' neste plano';
-  } else {
-    savingsEl.classList.remove('show');
-  }
-
-  var scoreEl = document.getElementById('scoreBadge');
-  var score = '', scoreClass = '', scoreIcon = '';
-  var midHighCount = items.filter(function(i) { return i.tier === 'mid' || i.tier === 'high'; }).length;
-  if (numSelected >= 3 || grand > 2000 || midHighCount >= 3) {
-    score = 'Lead Quente'; scoreClass = 'score-quente'; scoreIcon = '🔥';
-  } else if (numSelected === 2) {
-    score = 'Lead Morno'; scoreClass = 'score-morno'; scoreIcon = '🌡️';
-  } else if (numSelected === 1) {
-    score = 'Lead Frio'; scoreClass = 'score-frio'; scoreIcon = '❄️';
-  }
-  scoreEl.innerHTML = numSelected > 0 ? '<div class="score-badge ' + scoreClass + '">' + scoreIcon + ' ' + score + '</div>' : '';
-
-  var pct = Math.min(numSelected * 25, 100);
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressPct').textContent = pct + '%';
-  var stages = ['Nenhum serviço selecionado','Pacote básico','Pacote estratégico','Pacote de crescimento','Pacote de escala'];
-  document.getElementById('progressStage').textContent = stages[Math.min(numSelected, 4)];
-
-  document.getElementById('btnWhats').disabled = (numSelected === 0);
-}
-
-function computeDeliverables(items) {
-  var d = {};
-  items.forEach(function(it) {
-    var lvl = SERVICES[it.svc].levels[it.idx];
-    lvl.items.forEach(function(i) {
-      var m = i.match(/^(\d+)\s+(vídeos|fotos|posts|stories|campanhas|criativos)/);
-      if (m) { var k = m[2]; d[k] = (d[k] || 0) + parseInt(m[1]); }
+    var rowClass = lvlCount === 4 ? 'levels-row-4' : 'levels-row';
+    var levelsHTML = '<div class="levels-wrap"><div class="levels-label">Escolha o nível</div><div class="'+rowClass+'">';
+    svc.levels.forEach(function(lvl, i){
+      var isActive = isSelected && selIdx === i;
+      var tag = '';
+      if(lvlCount === 3 && i===1) tag = '<span class="lvl-tag pop">Mais escolhido</span>';
+      if(lvlCount === 3 && i===2) tag = '<span class="lvl-tag best">Avançado</span>';
+      var tierLabel = lvl.tier==='low'?'Básico':lvl.tier==='mid'?'Médio':'Avançado';
+      var detClass = 'det-'+lvl.tier;
+      var nudge = lvl.tier==='low' ? '<div class="lvl-nudge" style="color:#4a9eff;font-style:normal;font-weight:500;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.22);border-radius:4px;padding:2px 7px;display:inline-block;margin-top:6px;font-size:10px;">Para iniciantes.</div>' : '';
+      levelsHTML += '<div class="lvl-wrap">'
+        +'<button class="lvl-btn'+(isActive?' active':'')+'" data-svc="'+svcKey+'" data-idx="'+i+'">'
+        +'<div class="lvl-tier '+lvl.tier+'">'+tierLabel+'</div>'
+        +'<div class="lvl-name">'+lvl.name+'</div>'
+        +'<div class="lvl-price">'+fmt(lvl.price)+'</div>'
+        +tag
+        +nudge
+        +'</button>'
+        +'<button class="lvl-details-btn '+detClass+'" data-svc="'+svcKey+'" data-idx="'+i+'">Ver detalhes</button>'
+        +'</div>';
     });
-  });
-  return Object.keys(d).map(function(k) { return { val: d[k] + '+', label: k + '/mês' }; });
-}
+    levelsHTML += '</div>';
+    if(svcKey === 'videomaker') levelsHTML += '<div class="svc-included-note">✓ Edição de vídeo já inclusa neste plano</div>';
+    levelsHTML += '</div>';
 
-function sendToWhatsApp() {
-  var keys = Object.keys(state.selected);
-  if (keys.length === 0) return;
+    card.innerHTML = '<div class="svc-row" data-toggle="'+svcKey+'">'
+      +'<div class="svc-left">'
+      +'<div class="svc-icon">'+svc.icon+'</div>'
+      +'<div><div class="svc-name">'+svc.name+'</div><div class="svc-desc">'+svc.desc+'</div></div>'
+      +'</div>'
+      +'<div class="svc-check"><span class="svc-check-inner">✓</span></div>'
+      +'</div>'+levelsHTML;
 
-  var nome     = document.getElementById('fname').value.trim();
-  var empresa  = document.getElementById('fempresa').value.trim();
-  var segmento = document.getElementById('fsegmento').value.trim();
-  var whats    = document.getElementById('fwhats').value.trim();
-
-  var subtotal = 0;
-  var lines = [];
-  keys.forEach(function(svc) {
-    var idx = state.selected[svc];
-    var level = SERVICES[svc].levels[idx];
-    subtotal += level.price;
-    lines.push('• ' + SERVICES[svc].name + ' — ' + level.name + ' (' + fmt(level.price) + ')');
+    list.appendChild(card);
   });
 
-  var numSelected = keys.length;
-  var discountPct = numSelected >= 4 ? 12 : numSelected === 3 ? 10 : numSelected === 2 ? 5 : 0;
-  var autoDiscount = subtotal * discountPct / 100;
-  var couponDisc = 0;
-  if (state.coupon) {
-    var coup = COUPONS[state.coupon];
-    if (coup && (coup.accumulate || autoDiscount === 0)) {
-      couponDisc = coup.type === 'pct' ? subtotal * coup.value / 100 : coup.value;
-    }
-  }
-  var grand = subtotal - autoDiscount - couponDisc;
-
-  var msg = 'Olá! Montei um pacote no site da Agora Digital. 🚀\n\n';
-  if (nome)    msg += '*Nome:* ' + nome + '\n';
-  if (empresa) msg += '*Empresa:* ' + empresa + '\n';
-  if (segmento) msg += '*Segmento:* ' + segmento + '\n';
-  if (nome || empresa) msg += '\n';
-  msg += '*Serviços escolhidos:*\n' + lines.join('\n') + '\n\n';
-  if (discountPct > 0) msg += '*Desconto automático:* ' + discountPct + '% (- ' + fmt(autoDiscount) + ')\n';
-  if (couponDisc > 0)  msg += '*Cupom ' + state.coupon + ':* - ' + fmt(couponDisc) + '\n';
-  msg += '*Valor final:* ' + fmt(grand) + '\n\nQuero atendimento para fechar este plano!';
-
-  if (SHEETS_ENDPOINT) {
-    fetch(SHEETS_ENDPOINT, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ nome: nome, whats: whats, empresa: empresa, segmento: segmento, grand: grand, subtotal: subtotal, autoDiscount: autoDiscount, couponDisc: couponDisc, services: lines }) }).catch(function() {});
-  }
-
-  window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
-}
-
-// EVENT LISTENERS (sem onclick inline — compatível com Apps Script)
-document.addEventListener('DOMContentLoaded', function() {
-
-  // Toggles de serviço
-  document.querySelectorAll('.service-header[data-toggle]').forEach(function(el) {
-    el.addEventListener('click', function() {
-      toggleService(this.getAttribute('data-toggle'));
+  // Toggle service
+  list.querySelectorAll('.svc-row[data-toggle]').forEach(function(row){
+    row.addEventListener('click', function(){
+      toggleSvc(this.getAttribute('data-toggle'));
     });
   });
 
-  // Botões de nível
-  document.querySelectorAll('.level-btn[data-svc]').forEach(function(el) {
-    el.addEventListener('click', function(e) {
+  // Select level
+  list.querySelectorAll('.lvl-btn[data-svc]').forEach(function(btn){
+    btn.addEventListener('click', function(e){
       e.stopPropagation();
       selectLevel(this.getAttribute('data-svc'), parseInt(this.getAttribute('data-idx')));
     });
   });
 
-  // Combos
-  document.querySelectorAll('.combo-card[data-combo]').forEach(function(el) {
-    el.addEventListener('click', function() {
-      applyCombo(this.getAttribute('data-combo'));
+  // Open modal
+  list.querySelectorAll('.lvl-details-btn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      openModal(this.getAttribute('data-svc'), parseInt(this.getAttribute('data-idx')));
     });
   });
+}
 
-  // Intent pills
-  document.querySelectorAll('.intent-pill[data-intent]').forEach(function(el) {
-    el.addEventListener('click', function() {
-      document.querySelectorAll('.intent-pill').forEach(function(p) { p.classList.remove('active'); });
-      el.classList.add('active');
-      var combo = INTENT_COMBOS[el.getAttribute('data-intent')];
-      if (combo) applyCombo(combo);
-    });
+function toggleSvc(svc){
+  if(svc in state.selected){ delete state.selected[svc]; }
+  else {
+    state.selected[svc] = 0;
+    if(svc==='videomaker') delete state.selected['edicao'];
+    if(svc==='edicao') delete state.selected['videomaker'];
+  }
+  renderSvcList();
+  updateStep2Btn();
+}
+
+function selectLevel(svc, idx){
+  state.selected[svc] = idx;
+  if(svc==='videomaker') delete state.selected['edicao'];
+  if(svc==='edicao') delete state.selected['videomaker'];
+  renderSvcList();
+  updateStep2Btn();
+}
+
+function updateStep2Btn(){
+  document.getElementById('btnStep2').disabled = Object.keys(state.selected).length === 0;
+}
+
+// MODAL
+function openModal(svc, idx){
+  var s = SERVICES[svc];
+  var lvl = s.levels[idx];
+  modalState = { svc:svc, idx:idx };
+
+  var tier = lvl.tier;
+  document.getElementById('modalSvcName').textContent = s.name;
+  document.getElementById('modalTitle').textContent = lvl.name;
+  var priceEl = document.getElementById('modalPrice');
+  priceEl.textContent = fmt(lvl.price)+'/mês';
+  priceEl.className = 'modal-price price-'+tier;
+
+  var tierLabel = tier==='low'?'Básico':tier==='mid'?'Médio':'Avançado';
+  document.getElementById('modalTierLabel').textContent = tierLabel;
+  document.getElementById('modalTierLabel').className = 'modal-tier-label tier-label-'+tier;
+
+  document.getElementById('modalFor').textContent = lvl.for;
+
+  var itemsHTML = '';
+  lvl.items.forEach(function(item){
+    itemsHTML += '<div class="modal-item"><div class="modal-item-dot dot-'+tier+'"></div><div>'+item+'</div></div>';
   });
+  document.getElementById('modalItems').innerHTML = itemsHTML;
 
-  // Cupom toggle
-  document.getElementById('btnCouponToggle').addEventListener('click', function() {
-    document.getElementById('couponRow').classList.toggle('open');
-  });
+  var isAlreadySelected = state.selected[svc] === idx;
+  var btn = document.getElementById('modalSelectBtn');
+  btn.textContent = isAlreadySelected ? '✓ Plano selecionado' : 'Selecionar este plano';
+  btn.style.background = isAlreadySelected ? '#2adb7c' : '#ff6b35';
 
-  // Aplicar cupom
-  document.getElementById('btnApplyCoupon').addEventListener('click', function() {
-    var code = document.getElementById('couponCode').value.trim().toUpperCase();
-    var msg = document.getElementById('couponMsg');
-    if (!code) { msg.className = 'coupon-msg err'; msg.textContent = 'Digite um código.'; return; }
-    var coup = COUPONS[code];
-    if (!coup) {
-      msg.className = 'coupon-msg err';
-      msg.textContent = 'Cupom inválido ou expirado.';
-      state.coupon = null;
-    } else {
-      state.coupon = code;
-      var desc = coup.type === 'pct' ? coup.value + '% de desconto' : fmt(coup.value) + ' de desconto';
-      msg.className = 'coupon-msg ok';
-      var numSel = Object.keys(state.selected).length;
-      msg.textContent = 'Cupom ' + code + ' aplicado! ' + desc + ((!coup.accumulate && numSel >= 2) ? ' (não acumula com desconto automático)' : '');
-    }
-    updateUI();
-  });
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
 
-  // WhatsApp
-  document.getElementById('btnWhats').addEventListener('click', sendToWhatsApp);
-  document.getElementById('btnFalar').addEventListener('click', sendToWhatsApp);
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
 
-  updateUI();
+document.getElementById('modalSelectBtn').addEventListener('click', function(){
+  if(modalState.svc !== null){
+    selectLevel(modalState.svc, modalState.idx);
+  }
+  closeModal();
 });
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalOverlay').addEventListener('click', function(e){
+  if(e.target === this) closeModal();
+});
+
+document.getElementById('btnStep2').addEventListener('click', function(){
+  buildStep3();
+  showStep(3);
+});
+
+document.getElementById('btnBack1').addEventListener('click', function(){ showStep(1); });
+document.getElementById('btnBack2').addEventListener('click', function(){ showStep(2); });
+
+// STEP 3
+function buildStep3(){
+  var keys = Object.keys(state.selected);
+  var subtotal = 0, items = [];
+
+  keys.forEach(function(svc){
+    var idx = state.selected[svc];
+    var lvl = SERVICES[svc].levels[idx];
+    subtotal += lvl.price;
+    items.push({ svc:svc, idx:idx, name:SERVICES[svc].name, level:lvl.name, price:lvl.price, tier:lvl.tier });
+  });
+
+  var discPct=0, discName='';
+  if(keys.length>=4){ discPct=12; discName='Combo Escala (4+ serviços)'; }
+  else if(keys.length===3){ discPct=10; discName='Combo (3 serviços)'; }
+  else if(keys.length===2){ discPct=5; discName='Combo (2 serviços)'; }
+  var autoDisc = subtotal * discPct / 100;
+
+  var couponDisc = 0;
+  if(state.coupon){
+    var coup = COUPONS[state.coupon];
+    if(coup && (coup.accumulate || autoDisc===0)){
+      couponDisc = coup.type==='pct' ? subtotal*coup.value/100 : coup.value;
+    }
+  }
+
+  var grand = subtotal - autoDisc - couponDisc;
+  var totalDisc = autoDisc + couponDisc;
+
+  var html = items.map(function(it){
+    return '<div class="summary-item">'
+      +'<div><div class="summary-item-name">'+it.name+'</div><div class="summary-item-level">'+it.level+'</div></div>'
+      +'<div class="summary-item-price">'+fmt(it.price)+'</div>'
+      +'</div>';
+  }).join('');
+  document.getElementById('summaryItems').innerHTML = html;
+
+  document.getElementById('valSubtotal').textContent = fmt(subtotal);
+
+  var rd = document.getElementById('rowDiscount');
+  rd.style.display = autoDisc>0?'flex':'none';
+  if(autoDisc>0){ document.getElementById('lblDiscount').textContent=discName; document.getElementById('valDiscount').textContent='- '+fmt(autoDisc); }
+
+  var rc = document.getElementById('rowCoupon');
+  rc.style.display = couponDisc>0?'flex':'none';
+  if(couponDisc>0){ document.getElementById('lblCoupon').textContent='Cupom '+state.coupon; document.getElementById('valCoupon').textContent='- '+fmt(couponDisc); }
+
+  document.getElementById('valGrand').textContent = fmt(grand);
+
+  var sav = document.getElementById('savingsMsg');
+  if(totalDisc>0){ sav.classList.add('show'); sav.textContent='Você economizou '+fmt(totalDisc)+' neste plano'; }
+  else sav.classList.remove('show');
+
+  var ban = document.getElementById('discountBanner');
+  if(discPct>0){ ban.classList.add('show'); ban.textContent='🏷️ '+discName+' — '+discPct+'% de desconto aplicado'; }
+  else ban.classList.remove('show');
+
+  var midHigh = items.filter(function(i){ return i.tier==='mid'||i.tier==='high'; }).length;
+  var score='',scoreClass='',scoreIcon='';
+  if(keys.length>=3||grand>2000||midHigh>=3){ score='Lead Quente'; scoreClass='score-quente'; scoreIcon='🔥'; }
+  else if(keys.length===2){ score='Lead Morno'; scoreClass='score-morno'; scoreIcon='🌡️'; }
+  else if(keys.length===1){ score='Lead Frio'; scoreClass='score-frio'; scoreIcon='❄️'; }
+  document.getElementById('scorePill').innerHTML = keys.length>0
+    ? '<div class="score-pill '+scoreClass+'">'+scoreIcon+' '+score+'</div>' : '';
+
+  state._calc = { subtotal:subtotal, autoDisc:autoDisc, couponDisc:couponDisc, grand:grand, discPct:discPct, items:items, score:score };
+}
+
+// COUPON
+document.getElementById('btnCouponToggle').addEventListener('click', function(){
+  document.getElementById('couponRow').classList.toggle('open');
+});
+
+document.getElementById('btnApplyCoupon').addEventListener('click', function(){
+  var code = document.getElementById('couponCode').value.trim().toUpperCase();
+  var msg = document.getElementById('couponMsg');
+  if(!code){ msg.className='coupon-msg err'; msg.textContent='Digite um código.'; return; }
+  var coup = COUPONS[code];
+  if(!coup){ msg.className='coupon-msg err'; msg.textContent='Cupom inválido ou expirado.'; state.coupon=null; }
+  else {
+    state.coupon = code;
+    var desc = coup.type==='pct' ? coup.value+'% de desconto' : fmt(coup.value)+' de desconto';
+    msg.className='coupon-msg ok';
+    msg.textContent = 'Cupom '+code+' aplicado! '+desc;
+  }
+  buildStep3();
+});
+
+// SEND
+function doSend(){
+  var c = state._calc;
+  if(!c||c.items.length===0) return;
+
+  var nome    = document.getElementById('fname').value.trim();
+  var whats   = document.getElementById('fwhats').value.trim();
+  var empresa = document.getElementById('fempresa').value.trim();
+  var segmento= document.getElementById('fsegmento').value.trim();
+  var lines   = c.items.map(function(it){ return '• '+it.name+' — '+it.level+' ('+fmt(it.price)+')'; });
+
+  var msg = 'Olá! Montei um pacote no site da Agora Digital. 🚀\n\n';
+  if(nome)    msg += '*Nome:* '+nome+'\n';
+  if(empresa) msg += '*Empresa:* '+empresa+'\n';
+  if(segmento)msg += '*Segmento:* '+segmento+'\n';
+  if(nome||empresa) msg += '\n';
+  msg += '*Serviços:*\n'+lines.join('\n')+'\n\n';
+  if(c.discPct>0) msg += '*Desconto:* '+c.discPct+'% (- '+fmt(c.autoDisc)+')\n';
+  if(state.coupon&&c.couponDisc>0) msg += '*Cupom '+state.coupon+':* - '+fmt(c.couponDisc)+'\n';
+  msg += '*Valor final:* '+fmt(c.grand)+'\n\nQuero fechar este plano!';
+
+  fetch(ENDPOINT,{
+    method:'POST', mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ nome:nome, whats:whats, empresa:empresa, segmento:segmento,
+      grand:c.grand, subtotal:c.subtotal, autoDiscount:c.autoDisc,
+      couponDisc:c.couponDisc, coupon:state.coupon||'',
+      services:lines, score:c.score, objetivo:state.obj||'' })
+  }).catch(function(){});
+
+  window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+document.getElementById('btnWhats').addEventListener('click', doSend);
+document.getElementById('btnFalar').addEventListener('click', function(){ window.open('https://wa.me/'+WA,'_blank'); });
 </script>
 </body>
 </html>
