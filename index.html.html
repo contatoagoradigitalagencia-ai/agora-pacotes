@@ -670,16 +670,31 @@ document.getElementById('btnApplyCoupon').addEventListener('click', function(){
   var code = document.getElementById('couponCode').value.trim().toUpperCase();
   var msg = document.getElementById('couponMsg');
   if(!code){ msg.className='coupon-msg err'; msg.textContent='Digite um código.'; return; }
+
+  // Se cupons ainda não carregaram da planilha, tenta recarregar e aguarda
+  if(!COUPONS_LOADED){
+    msg.className='coupon-msg'; msg.style.color='#888'; msg.textContent='Verificando cupom...';
+    loadCoupons();
+    setTimeout(function(){
+      validarCupom(code);
+    }, 2000);
+    return;
+  }
+  validarCupom(code);
+});
+
+function validarCupom(code){
+  var msg = document.getElementById('couponMsg');
   var coup = COUPONS[code];
-  if(!coup){ msg.className='coupon-msg err'; msg.textContent='Cupom inválido ou expirado.'; state.coupon=null; }
+  if(!coup){ msg.className='coupon-msg err'; msg.style.color=''; msg.textContent='Cupom inválido ou expirado.'; state.coupon=null; }
   else {
     state.coupon = code;
     var desc = coup.type==='pct' ? coup.value+'% de desconto' : fmt(coup.value)+' de desconto';
-    msg.className='coupon-msg ok';
+    msg.className='coupon-msg ok'; msg.style.color='';
     msg.textContent = 'Cupom '+code+' aplicado! '+desc;
   }
   buildStep3();
-});
+}
 
 // SEND
 function doSend(){
