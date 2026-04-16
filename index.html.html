@@ -627,8 +627,8 @@ function buildStep3(){
   var couponDisc = 0;
   if(state.coupon){
     var coup = COUPONS[state.coupon];
-    if(coup && (coup.accumulate || autoDisc===0)){
-      couponDisc = coup.type==='pct' ? subtotal*coup.value/100 : coup.value;
+    if(coup){
+      couponDisc = coup.type==='pct' ? (subtotal - autoDisc)*coup.value/100 : coup.value;
     }
   }
 
