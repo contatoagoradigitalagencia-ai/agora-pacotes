@@ -368,25 +368,23 @@ var COMBOS = {
 
 // Cupons carregados dinamicamente da planilha
 var COUPONS = {};
+var COUPONS_LOADED = false;
 
 function loadCoupons() {
-  fetch(ENDPOINT + '?action=coupons', { method:'GET', mode:'cors' })
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      if(data.success && data.coupons) {
-        COUPONS = data.coupons;
-      }
-    })
-    .catch(function(){
-      // Fallback local se planilha não responder
-      COUPONS = {
-        'AGORA5':        { type:'pct', value:5,  accumulate:false },
-        'AGORA10':       { type:'pct', value:10, accumulate:false },
-        'CLIENTENOVO':   { type:'pct', value:8,  accumulate:false },
-        'FECHOUHOJE':    { type:'pct', value:12, accumulate:false },
-        'PERFORMANCE10': { type:'pct', value:10, accumulate:false }
-      };
-    });
+  var script = document.createElement('script');
+  script.src = ENDPOINT + '?action=coupons&callback=setCoupons';
+  document.head.appendChild(script);
+  // Timeout fallback — se não carregar em 3s, fica vazio (sem cupons hardcoded)
+  setTimeout(function(){
+    if(!COUPONS_LOADED) COUPONS = {};
+  }, 3000);
+}
+
+function setCoupons(data) {
+  if(data && data.coupons) {
+    COUPONS = data.coupons;
+    COUPONS_LOADED = true;
+  }
 }
 
 var state = { obj:null, selected:{}, coupon:null, _calc:null };
