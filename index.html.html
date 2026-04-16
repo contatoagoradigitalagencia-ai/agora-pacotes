@@ -366,13 +366,28 @@ var COMBOS = {
   custom:   { svcs:[], levels:[], label:'' }
 };
 
-var COUPONS = {
-  'AGORA5':        { type:'pct', value:5,  accumulate:false },
-  'AGORA10':       { type:'pct', value:10, accumulate:false },
-  'CLIENTENOVO':   { type:'pct', value:8,  accumulate:false },
-  'FECHOUHOJE':    { type:'pct', value:12, accumulate:false },
-  'PERFORMANCE10': { type:'pct', value:10, accumulate:false }
-};
+// Cupons carregados dinamicamente da planilha
+var COUPONS = {};
+
+function loadCoupons() {
+  fetch(ENDPOINT + '?action=coupons', { method:'GET', mode:'cors' })
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if(data.success && data.coupons) {
+        COUPONS = data.coupons;
+      }
+    })
+    .catch(function(){
+      // Fallback local se planilha não responder
+      COUPONS = {
+        'AGORA5':        { type:'pct', value:5,  accumulate:false },
+        'AGORA10':       { type:'pct', value:10, accumulate:false },
+        'CLIENTENOVO':   { type:'pct', value:8,  accumulate:false },
+        'FECHOUHOJE':    { type:'pct', value:12, accumulate:false },
+        'PERFORMANCE10': { type:'pct', value:10, accumulate:false }
+      };
+    });
+}
 
 var state = { obj:null, selected:{}, coupon:null, _calc:null };
 var modalState = { svc:null, idx:null };
@@ -703,6 +718,9 @@ function doSend(){
 
 document.getElementById('btnWhats').addEventListener('click', doSend);
 document.getElementById('btnFalar').addEventListener('click', function(){ window.open('https://wa.me/'+WA,'_blank'); });
+
+// Carrega cupons da planilha ao iniciar
+loadCoupons();
 </script>
 </body>
 </html>
