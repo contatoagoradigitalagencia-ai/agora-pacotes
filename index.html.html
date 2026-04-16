@@ -346,12 +346,20 @@ var SERVICES = {
     { name:'Agora Bot', tier:'high', price:287.90,
       items:['Agente de IA com personalidade personalizada','Atendimento e vendas pelo WhatsApp','API oficial do WhatsApp','Planilha de precificação integrada','Geração de personalidade de marca','Vendas garantidas com automação inteligente'],
       for:'Indicado para empresas que querem automatizar atendimento e vender mais sem depender de equipe manual.' }
+  ]},
+  consultoria: { name:'Estratégia Agora', icon:'🧠', desc:'Consultoria estratégica de crescimento digital', levels:[
+    { name:'Mensal', tier:'mid', price:797.90,
+      items:['Reuniões mensais de estratégia','Análise de posicionamento e mercado','Plano de ação personalizado','Acompanhamento de resultados','Acesso direto aos especialistas da Agora Digital','Revisão de campanhas e conteúdo'],
+      for:'Indicado para empresas que querem crescer com direção estratégica contínua e suporte especializado.' },
+    { name:'Avulso', tier:'high', price:1400.00,
+      items:['Sessão estratégica completa (único mês)','Diagnóstico digital aprofundado','Plano de ação detalhado','Revisão de posicionamento, campanhas e conteúdo','Acesso direto aos especialistas da Agora Digital'],
+      for:'Indicado para quem precisa de uma consultoria pontual sem compromisso de recorrência.' }
   ]}
 };
 
 var COMBOS = {
-  vender:   { svcs:['social','trafego','edicao'],     levels:[1,1,1], label:'Social Media + Tráfego Pago + Edição de Vídeo' },
-  imagem:   { svcs:['social','site','seo'],           levels:[1,1,1], label:'Social Media + Site + SEO' },
+  vender:   { svcs:['social','trafego','agorabot','videomaker'],   levels:[1,1,0,1], label:'Social Media + Tráfego Pago + Agora Bot + Videomaker' },
+  imagem:   { svcs:['social','site','seo'],           levels:[1,0,1], label:'Social Media + Site + SEO' },
   leads:    { svcs:['trafego','social','site'],       levels:[1,1,0], label:'Tráfego Pago + Social Media + Site' },
   presenca: { svcs:['social','site','seo'],           levels:[0,0,0], label:'Social Media + Site + SEO' },
   escala:   { svcs:['social','trafego','videomaker'], levels:[2,2,1], label:'Social Media + Tráfego Pago + Videomaker' },
