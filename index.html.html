@@ -749,7 +749,7 @@ function sendToWhatsApp() {
   msg += '*Valor final:* ' + fmt(grand) + '\n\nQuero atendimento para fechar este plano!';
 
   if (SHEETS_ENDPOINT) {
-    fetch(SHEETS_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nome: nome, whats: whats, empresa: empresa, segmento: segmento, grand: grand, subtotal: subtotal, autoDiscount: autoDiscount, couponDisc: couponDisc, services: lines }) }).catch(function() {});
+    fetch(SHEETS_ENDPOINT, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ nome: nome, whats: whats, empresa: empresa, segmento: segmento, grand: grand, subtotal: subtotal, autoDiscount: autoDiscount, couponDisc: couponDisc, services: lines }) }).catch(function() {});
   }
 
   window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
