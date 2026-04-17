@@ -697,8 +697,15 @@ function buildStep3(){
   var couponDisc = 0;
   if(state.coupon){
     var coup = COUPONS[state.coupon];
-    if(coup){
+    // Cupom só aplica se: combo tem 3+ serviços OU todos os itens são >= R$600
+    var todosAcimaDe600 = items.every(function(it){ return it.price >= 600; });
+    var comboValido = keys.length >= 3 || todosAcimaDe600;
+    if(coup && comboValido){
       couponDisc = coup.type==='pct' ? (subtotal - autoDisc)*coup.value/100 : coup.value;
+    } else if(coup && !comboValido){
+      // Aplica cupom apenas sobre itens >= 600
+      var baseValida = items.reduce(function(acc,it){ return acc + (it.price>=600 ? it.price : 0); }, 0);
+      couponDisc = coup.type==='pct' ? baseValida*coup.value/100 : (baseValida > 0 ? coup.value : 0);
     }
   }
 
