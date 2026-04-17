@@ -776,13 +776,43 @@ document.getElementById('btnApplyCoupon').addEventListener('click', function(){
 function validarCupom(code){
   var msg = document.getElementById('couponMsg');
   var coup = COUPONS[code];
-  if(!coup){ msg.className='coupon-msg err'; msg.style.color=''; msg.textContent='Cupom inválido ou expirado.'; state.coupon=null; }
-  else {
-    state.coupon = code;
-    var desc = coup.type==='pct' ? coup.value+'% de desconto' : fmt(coup.value)+' de desconto';
-    msg.className='coupon-msg ok'; msg.style.color='';
+
+  if(!coup){
+    msg.className='coupon-msg err'; msg.style.color='';
+    msg.textContent='Cupom inválido ou expirado.';
+    state.coupon=null;
+    buildStep3();
+    return;
+  }
+
+  // Verifica se o pacote atual permite cupom
+  var keys = Object.keys(state.selected);
+  var items = keys.map(function(svc){
+    var idx = state.selected[svc];
+    return SERVICES[svc].levels[idx];
+  });
+  var todosAcimaDe600 = items.every(function(lvl){ return lvl.price >= 600; });
+  var comboValido = keys.length >= 3 || todosAcimaDe600;
+  var temBaseValida = items.some(function(lvl){ return lvl.price >= 600; });
+
+  if(!comboValido && !temBaseValida){
+    msg.className='coupon-msg err'; msg.style.color='';
+    msg.textContent='Cupom não aplicável a este plano. Combine com mais serviços para ativar.';
+    state.coupon=null;
+    buildStep3();
+    return;
+  }
+
+  state.coupon = code;
+  var desc = coup.type==='pct' ? coup.value+'% de desconto' : fmt(coup.value)+' de desconto';
+  msg.className='coupon-msg ok'; msg.style.color='';
+
+  if(!comboValido && temBaseValida){
+    msg.textContent = 'Cupom '+code+' aplicado nos serviços elegíveis! '+desc;
+  } else {
     msg.textContent = 'Cupom '+code+' aplicado! '+desc;
   }
+
   buildStep3();
 }
 
