@@ -684,7 +684,15 @@ function buildStep3(){
   if(keys.length>=4){ discPct=12; discName='Combo Escala (4+ serviços)'; }
   else if(keys.length===3){ discPct=10; discName='Combo (3 serviços)'; }
   else if(keys.length===2){ discPct=5; discName='Combo (2 serviços)'; }
-  var autoDisc = subtotal * discPct / 100;
+
+  // Regra: planos abaixo de R$600 só recebem desconto quando o combo tem 3+ serviços
+  var baseParaDesconto = 0;
+  items.forEach(function(it){
+    if(it.price >= 600 || keys.length >= 3){
+      baseParaDesconto += it.price;
+    }
+  });
+  var autoDisc = baseParaDesconto * discPct / 100;
 
   var couponDisc = 0;
   if(state.coupon){
