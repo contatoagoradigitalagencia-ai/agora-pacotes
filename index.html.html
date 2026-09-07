@@ -240,12 +240,12 @@ body { font-family:'DM Sans',sans-serif; background:#0a0a0f; color:#f0f0f5; min-
     <div class="step-title">O que sua empresa precisa agora?</div>
     <div class="step-sub">Escolha o objetivo e montamos o pacote ideal para você.</div>
     <div class="obj-grid">
-      <button class="obj-card" data-obj="vender"><span class="obj-icon">📈</span><span class="obj-name">Vender mais</span><span class="obj-desc">Atrair e converter clientes</span></button>
-      <button class="obj-card" data-obj="imagem"><span class="obj-icon">✨</span><span class="obj-name">Melhorar imagem</span><span class="obj-desc">Profissionalizar a marca</span></button>
-      <button class="obj-card" data-obj="leads"><span class="obj-icon">🎯</span><span class="obj-name">Gerar leads</span><span class="obj-desc">Captar contatos qualificados</span></button>
-      <button class="obj-card" data-obj="presenca"><span class="obj-icon">🌐</span><span class="obj-name">Estruturar presença</span><span class="obj-desc">Marcar território no digital</span></button>
-      <button class="obj-card" data-obj="escala"><span class="obj-icon">🚀</span><span class="obj-name">Escalar crescimento</span><span class="obj-desc">Crescer com estrutura</span></button>
-      <button class="obj-card" data-obj="custom"><span class="obj-icon">🛠️</span><span class="obj-name">Montar manualmente</span><span class="obj-desc">Escolho os serviços</span></button>
+      <button class="obj-card" data-obj="vender"><span class="obj-name">Vender mais</span><span class="obj-desc">Atrair e converter clientes</span></button>
+      <button class="obj-card" data-obj="imagem"><span class="obj-name">Melhorar imagem</span><span class="obj-desc">Profissionalizar a marca</span></button>
+      <button class="obj-card" data-obj="leads"><span class="obj-name">Gerar leads</span><span class="obj-desc">Captar contatos qualificados</span></button>
+      <button class="obj-card" data-obj="presenca"><span class="obj-name">Estruturar presença</span><span class="obj-desc">Marcar território no digital</span></button>
+      <button class="obj-card" data-obj="escala"><span class="obj-name">Escalar crescimento</span><span class="obj-desc">Crescer com estrutura</span></button>
+      <button class="obj-card" data-obj="custom"><span class="obj-name">Montar manualmente</span><span class="obj-desc">Escolho os serviços</span></button>
     </div>
     <button class="btn-primary" id="btnStep1" disabled>Continuar →</button>
   </div>
@@ -286,7 +286,7 @@ body { font-family:'DM Sans',sans-serif; background:#0a0a0f; color:#f0f0f5; min-
       </div>
     </div>
     <div class="coupon-section">
-      <button class="coupon-toggle" id="btnCouponToggle"><span class="coupon-emoji">🎟️</span> Tenho um cupom de desconto</button>
+      <button class="coupon-toggle" id="btnCouponToggle">Tenho um cupom de desconto</button>
       <div class="coupon-row" id="couponRow">
         <input class="coupon-input" id="couponCode" type="text" placeholder="AGORA10" maxlength="20">
         <button class="coupon-btn" id="btnApplyCoupon">Aplicar</button>
@@ -303,10 +303,10 @@ body { font-family:'DM Sans',sans-serif; background:#0a0a0f; color:#f0f0f5; min-
     <input class="form-input" id="fempresa" type="text" placeholder="Empresa (opcional)">
     <input class="form-input" id="fsegmento" type="text" placeholder="Segmento (opcional)">
     <div class="consent">Ao enviar, você concorda com o uso dos dados para contato comercial pela Agora Digital.</div>
-    <button class="btn-primary" id="btnWhats" disabled style="opacity:0.35;cursor:not-allowed">💬 Receber proposta no WhatsApp</button>
+    <button class="btn-primary" id="btnWhats" disabled style="opacity:0.35;cursor:not-allowed">Receber proposta no WhatsApp</button>
     <div id="whatsHint" style="font-size:11px;color:#555;text-align:center;margin:-4px 0 8px">Preencha seu WhatsApp para continuar</div>
     <button class="btn-secondary" id="btnFalar">Falar com a equipe</button>
-    <div style="margin-top:16px;font-size:11px;color:#2a2a2a;text-align:center;line-height:1.6">⚡ Início em até 3 dias úteis após fechamento</div>
+    <div style="margin-top:16px;font-size:11px;color:#2a2a2a;text-align:center;line-height:1.6">Início em até 3 dias úteis após fechamento</div>
   </div>
 </div>
 
@@ -330,67 +330,37 @@ var WA = '5521971107509';
 var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyg4Up9wT-9dmnPTQP2mRHaqXgB0vdNkP-CgmAQPuaaKU_kbsH_IhT6qow57f_J8ZuWzQ/exec';
 
 var SERVICES = {
-  social: { name:'Social Media', icon:'📱', desc:'Gestão de redes sociais', levels:[
-    { name:'Essencial', tier:'low', price:857.90,
-      items:['12 posts por mês','8 stories por mês','Planejamento de conteúdo','Calendário editorial','Organização e otimização do perfil'],
-      for:'Indicado para empresas que estão começando a construir presença nas redes sociais.' },
-    { name:'Crescimento', tier:'mid', price:1197.90,
+  social: { name:'Social Media', desc:'Gestão de redes sociais', levels:[
+    { name:'Social Media', tier:'mid', price:1200.00,
       items:['16 posts por mês','12 stories por mês','Estratégia de posicionamento','Conteúdo focado em conversão','Ajustes de comunicação e identidade'],
-      for:'Indicado para empresas que já têm presença e querem crescer com estratégia.' },
-    { name:'Autoridade', tier:'high', price:1497.90,
-      items:['20+ posts por mês','Stories contínuos e estratégicos','Posicionamento de marca','Estratégia avançada de conteúdo','Integração com tráfego pago'],
-      for:'Indicado para empresas que querem se tornar referência no seu segmento.' }
+      for:'Indicado para empresas que querem construir e crescer presença nas redes sociais com estratégia.' }
   ]},
-  trafego: { name:'Tráfego Pago', icon:'📊', desc:'Anúncios em Meta Ads e Google', levels:[
-    { name:'Light Meta Ads', tier:'low', price:817.90,
-      items:['Até 3 campanhas ativas','Até 10 criativos por mês','Segmentação por interesse e região','Otimização semanal','Relatório mensal','Dashboard integrado à campanha'],
-      for:'Indicado para quem está começando com anúncios e quer testar o canal.' },
-    { name:'Performance', tier:'mid', price:1097.90,
-      items:['Até 6 campanhas ativas','Até 20 criativos por mês','Meta Ads + Google básico','Remarketing e funil de captação','Otimização 2x por semana','Relatório com análise','Dashboard integrado à campanha'],
-      for:'Indicado para empresas que querem gerar leads e vendas de forma consistente.' },
-    { name:'Escala Full Stack', tier:'high', price:1397.90,
-      items:['Campanhas escaláveis','Até 30 criativos por mês','Testes A/B contínuos','Meta Ads avançado + Google completo','Estratégia de atração, nutrição e conversão','Otimização contínua com relatórios detalhados','Dashboard integrado à campanha'],
-      for:'Indicado para empresas prontas para crescer com alta performance e volume.' }
+  trafego: { name:'Tráfego Pago', desc:'Anúncios em Meta Ads e Google', levels:[
+    { name:'Tráfego Pago', tier:'mid', price:1500.00,
+      items:['Campanhas em Meta Ads e Google Ads','Criativos e segmentação mensal','Remarketing e funil de captação','Otimização contínua','Relatório com análise','Dashboard integrado à campanha'],
+      for:'Indicado para empresas que querem gerar leads e vendas de forma consistente com Meta Ads e Google Ads.' }
   ]},
-  videomaker: { name:'Videomaker', icon:'🎬', desc:'Gravação profissional com edição inclusa', levels:[
-    { name:'Light', tier:'low', price:614.90,
-      items:['4 vídeos por mês','10 fotos por mês','1 dia de gravação','Captação e edição básica','Conteúdo para redes sociais'],
-      for:'Indicado para quem quer começar a produzir vídeo com custo acessível.' },
-    { name:'Pro', tier:'mid', price:897.90,
+  videomaker: { name:'Videomaker', desc:'Gravação profissional com edição inclusa', levels:[
+    { name:'Videomaker', tier:'mid', price:1200.00,
       items:['8 vídeos por mês','20 fotos por mês','2 dias de gravação','Roteiro básico e direção','Edição profissional focada em engajamento'],
-      for:'Indicado para empresas que querem conteúdo em vídeo de qualidade regularmente.' },
-    { name:'Full', tier:'high', price:1297.90,
-      items:['12 vídeos por mês','30 fotos por mês','Até 4 dias de gravação','Roteiro estratégico completo','Direção profissional','Edição avançada com planejamento mensal'],
-      for:'Indicado para marcas que apostam no vídeo como principal canal de comunicação.' }
+      for:'Indicado para empresas que querem conteúdo em vídeo de qualidade regularmente.' }
   ]},
-  edicao: { name:'Edição de Vídeo', icon:'✂️', desc:'Edição de vídeos já gravados', levels:[
-    { name:'Light', tier:'low', price:257.90,
-      items:['Até 12 vídeos editados por mês','Até 18 imagens tratadas','Corte, montagem e legenda básica','Ajuste de áudio e cor','Entrega em até 48h'],
-      for:'Indicado para quem já grava e precisa de edição ágil e acessível.' },
-    { name:'Pro', tier:'mid', price:497.90,
+  edicao: { name:'Edição de Vídeo', desc:'Edição de vídeos já gravados', levels:[
+    { name:'Edição de Vídeo', tier:'mid', price:457.90,
       items:['Até 20 vídeos editados por mês','Até 30 imagens','Legendas dinâmicas','Cortes estratégicos para retenção','Identidade visual aplicada'],
-      for:'Indicado para criadores e empresas com produção regular de conteúdo.' },
-    { name:'Full', tier:'high', price:797.90,
-      items:['Até 30 vídeos editados por mês','Até 50 imagens','Edição avançada com storytelling','Ganchos de abertura para retenção','Adaptação para tráfego pago','Ajustes ilimitados no mês'],
-      for:'Indicado para quem usa vídeo como principal estratégia de vendas e tráfego.' }
+      for:'Indicado para criadores e empresas com produção regular de conteúdo.' }
   ]},
-  site: { name:'Site', icon:'🌐', desc:'Landing page comercial', levels:[
-    { name:'Landing Page', tier:'mid', price:1300.00,
+  site: { name:'Site', desc:'Landing page comercial', levels:[
+    { name:'Landing Page', tier:'mid', price:1500.00,
       items:['Página institucional ou comercial','Design responsivo para mobile','Estrutura de conversão','Botão direto para WhatsApp','Entrega rápida'],
       for:'Indicado para quem precisa de presença online rápida e focada em conversão.' }
   ]},
-  seo: { name:'SEO / Google', icon:'🔍', desc:'Presença orgânica no Google', levels:[
-    { name:'Configuração Inicial', tier:'low', price:167.90,
-      items:['Configuração de presença no Google','Google Meu Negócio','Ajustes técnicos básicos','Verificação e indexação'],
-      for:'Indicado para quem ainda não tem presença configurada no Google.' },
-    { name:'SEO Básico', tier:'mid', price:347.90,
+  seo: { name:'SEO / Google', desc:'Presença orgânica no Google', levels:[
+    { name:'SEO / Google', tier:'mid', price:1200.00,
       items:['SEO mensal contínuo','Otimização de páginas e conteúdo','Palavras-chave estratégicas','Relatório de posicionamento'],
-      for:'Indicado para empresas que querem aparecer nas buscas do Google regularmente.' },
-    { name:'SEO Estratégico', tier:'high', price:597.90,
-      items:['SEO local estratégico completo','Otimização robusta de conteúdo','Construção de autoridade de domínio','Relatórios detalhados de evolução','Reforço de posicionamento contínuo'],
-      for:'Indicado para empresas que querem dominar as buscas no seu segmento e região.' }
+      for:'Indicado para empresas que querem aparecer nas buscas do Google regularmente.' }
   ]},
-  eventos: { name:'Cobertura de Eventos', icon:'📸', desc:'Foto e vídeo de eventos', levels:[
+  eventos: { name:'Cobertura de Eventos', desc:'Foto e vídeo de eventos', levels:[
     { name:'Storymaker', tier:'low', price:450.97,
       items:['Cobertura de stories do evento','Conteúdo para redes sociais','Entrega no mesmo dia'],
       for:'Indicado para quem quer registrar o evento para as redes de forma ágil.' },
@@ -404,27 +374,24 @@ var SERVICES = {
       items:['Foto + Vídeo + Stories','Cobertura completa do evento','Edição avançada de todo o material','Entrega organizada por formato'],
       for:'Indicado para eventos que precisam de cobertura total e profissional.' }
   ]},
-  agorabot: { name:'Agora Bot', icon:'🤖', desc:'Agente de inteligência artificial no WhatsApp', levels:[
-    { name:'Agora Bot', tier:'high', price:287.90,
+  agorabot: { name:'Agora Bot', desc:'Agente de inteligência artificial no WhatsApp', levels:[
+    { name:'Agora Bot', tier:'high', price:299.90,
       items:['Agente de IA com personalidade personalizada','Atendimento e vendas pelo WhatsApp','API oficial do WhatsApp','Planilha de precificação integrada','Geração de personalidade de marca','Vendas garantidas com automação inteligente'],
       for:'Indicado para empresas que querem automatizar atendimento e vender mais sem depender de equipe manual.' }
   ]},
-  consultoria: { name:'Estratégia Agora', icon:'🧠', desc:'Consultoria estratégica de crescimento digital', levels:[
-    { name:'Mensal', tier:'mid', price:797.90,
-      items:['Reuniões mensais de estratégia','Análise de posicionamento e mercado','Plano de ação personalizado','Acompanhamento de resultados','Acesso direto aos especialistas da Agora Digital','Revisão de campanhas e conteúdo'],
-      for:'Indicado para empresas que querem crescer com direção estratégica contínua e suporte especializado.' },
-    { name:'Avulso', tier:'high', price:1400.00,
-      items:['Sessão estratégica completa (único mês)','Diagnóstico digital aprofundado','Plano de ação detalhado','Revisão de posicionamento, campanhas e conteúdo','Acesso direto aos especialistas da Agora Digital'],
-      for:'Indicado para quem precisa de uma consultoria pontual sem compromisso de recorrência.' }
+  consultoria: { name:'Estratégia Agora', desc:'Consultoria estratégica de crescimento digital', levels:[
+    { name:'Estratégia Agora', tier:'high', price:1487.90,
+      items:['Sessão estratégica completa','Diagnóstico digital aprofundado','Plano de ação detalhado','Revisão de posicionamento, campanhas e conteúdo','Acesso direto aos especialistas da Agora Digital'],
+      for:'Indicado para quem precisa de uma consultoria estratégica pontual, sem compromisso de recorrência.' }
   ]}
 };
 
 var COMBOS = {
-  vender:   { svcs:['social','trafego','agorabot','videomaker'],   levels:[1,1,0,1], label:'Social Media + Tráfego Pago + Agora Bot + Videomaker' },
-  imagem:   { svcs:['social','site','seo'],           levels:[1,0,1], label:'Social Media + Site + SEO' },
-  leads:    { svcs:['trafego','social','site'],       levels:[1,1,0], label:'Tráfego Pago + Social Media + Site' },
+  vender:   { svcs:['social','trafego','agorabot','videomaker'],   levels:[0,0,0,0], label:'Social Media + Tráfego Pago + Agora Bot + Videomaker' },
+  imagem:   { svcs:['social','site','seo'],           levels:[0,0,0], label:'Social Media + Site + SEO' },
+  leads:    { svcs:['trafego','social','site'],       levels:[0,0,0], label:'Tráfego Pago + Social Media + Site' },
   presenca: { svcs:['social','site','seo'],           levels:[0,0,0], label:'Social Media + Site + SEO' },
-  escala:   { svcs:['social','trafego','videomaker'], levels:[2,2,1], label:'Social Media + Tráfego Pago + Videomaker' },
+  escala:   { svcs:['social','trafego','videomaker'], levels:[0,0,0], label:'Social Media + Tráfego Pago + Videomaker' },
   custom:   { svcs:[], levels:[], label:'' }
 };
 
@@ -553,7 +520,6 @@ function renderSvcList(){
 
     card.innerHTML = '<div class="svc-row" data-toggle="'+svcKey+'">'
       +'<div class="svc-left">'
-      +'<div class="svc-icon">'+svc.icon+'</div>'
       +'<div><div class="svc-name">'+svc.name+'</div><div class="svc-desc">'+svc.desc+'</div></div>'
       +'</div>'
       +'<div class="svc-check"><span class="svc-check-inner">✓</span></div>'
@@ -737,16 +703,16 @@ function buildStep3(){
   else sav.classList.remove('show');
 
   var ban = document.getElementById('discountBanner');
-  if(discPct>0){ ban.classList.add('show'); ban.textContent='🏷️ '+discName+' — '+discPct+'% de desconto aplicado'; }
+  if(discPct>0){ ban.classList.add('show'); ban.textContent=discName+' — '+discPct+'% de desconto aplicado'; }
   else ban.classList.remove('show');
 
   var midHigh = items.filter(function(i){ return i.tier==='mid'||i.tier==='high'; }).length;
-  var score='',scoreClass='',scoreIcon='';
-  if(keys.length>=3||grand>2000||midHigh>=3){ score='Lead Quente'; scoreClass='score-quente'; scoreIcon='🔥'; }
-  else if(keys.length===2){ score='Lead Morno'; scoreClass='score-morno'; scoreIcon='🌡️'; }
-  else if(keys.length===1){ score='Lead Frio'; scoreClass='score-frio'; scoreIcon='❄️'; }
+  var score='',scoreClass='';
+  if(keys.length>=3||grand>2000||midHigh>=3){ score='Lead Quente'; scoreClass='score-quente'; }
+  else if(keys.length===2){ score='Lead Morno'; scoreClass='score-morno'; }
+  else if(keys.length===1){ score='Lead Frio'; scoreClass='score-frio'; }
   document.getElementById('scorePill').innerHTML = keys.length>0
-    ? '<div class="score-pill '+scoreClass+'">'+scoreIcon+' '+score+'</div>' : '';
+    ? '<div class="score-pill '+scoreClass+'">'+score+'</div>' : '';
 
   state._calc = { subtotal:subtotal, autoDisc:autoDisc, couponDisc:couponDisc, grand:grand, discPct:discPct, items:items, score:score };
 }
@@ -827,7 +793,7 @@ function doSend(){
   var segmento= document.getElementById('fsegmento').value.trim();
   var lines   = c.items.map(function(it){ return '• '+it.name+' — '+it.level+' ('+fmt(it.price)+')'; });
 
-  var msg = 'Olá! Montei um pacote no site da Agora Digital. 🚀\n\n';
+  var msg = 'Olá! Montei um pacote no site da Agora Digital.\n\n';
   if(nome)    msg += '*Nome:* '+nome+'\n';
   if(empresa) msg += '*Empresa:* '+empresa+'\n';
   if(segmento)msg += '*Segmento:* '+segmento+'\n';
